@@ -1,0 +1,86 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+header,
+nav,
+main,
+footer {
+  padding: 15px;
+  margin:0 auto;
+  border-bottom: 1px solid gray;
+}
+
+header {
+  background-color: white;
+  padding: 20px;
+}
+
+header .container {
+  padding: 0;
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: flex-end;
+}
+
+.container-logo {
+  display: inline-block;
+}
+.container-logo .logo {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin-right: 15px;
+}
+
+.container-title {
+  font-size: 1.3rem;
+  display: inline-block;
+}
+.container-title .title {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.container-title .title span:nth-child(1) {
+  color: #4398d1;
+}
+.container-title .title span:nth-child(2) {
+  color: #f8b34b;
+}
+.container-title .title span:nth-child(3) {
+  color: #4398d1;
+}
+
+.container-title .slogan {
+  color: dimgray;
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.nav-color {
+  background-color: whitesmoke;
+}
+
+nav a {
+  color: darkslateblue;
+  text-decoration: none;
+}
+
+main {
+  background-color: white;
+  min-height: 300px;
+}
+main h2 {
+  border-bottom: 1px solid lightgrey;
+  color: darkslategrey;
+}
+
+footer {
+  background-color: white;
+}
