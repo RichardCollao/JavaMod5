@@ -3,8 +3,6 @@ package model.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
-
 import entities.Administrativo;
 import model.dao.interfaces.IAdministrativo;
 
@@ -119,8 +117,8 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 	}
 
 	@Override
-	public List<Administrativo> readAll() throws Exception {
-		List<Administrativo> listAdministrativos = new ArrayList<>();
+	public ArrayList<Administrativo> readAll() throws Exception {
+		ArrayList<Administrativo> listAdministrativos = new ArrayList<>();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

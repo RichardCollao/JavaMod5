@@ -1,7 +1,7 @@
 package com.company.servlets;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,30 +10,35 @@ import model.dao.mysql.MySQLUsuarioDAO;
 
 public class ListarUsuarios extends MainServlet{
 
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, Exception {
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		
-		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-		List<Usuario> usurariosList =  db.readAll();
-		System.out.println("it's showtime");
-
-		for (Usuario usuario : usurariosList) {
-			System.out.println(usuario.toString());
-		}
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		processRequest("/usuarios");
+		
+		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
+		ArrayList<Usuario> usuariosList = new ArrayList();
+		try {
+			usuariosList = db.readAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("it's showtime");
+
+		for (Usuario usuario : usuariosList) {
+			System.out.println(usuario.toString());
+		}
+
+		request.setAttribute("usuariosList", usuariosList);
+		//index("/listarusuarios");
+		request.getRequestDispatcher("listarusuarios.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		processRequest("/usuarios");
+		index("/listarusuarios");
 	}
 
 	@Override

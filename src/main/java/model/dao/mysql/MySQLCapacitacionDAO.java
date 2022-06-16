@@ -3,7 +3,6 @@ package model.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import entities.Capacitacion;
 import model.dao.interfaces.ICapacitacion;
 
@@ -102,8 +101,8 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 	}
 
 	@Override
-	public List<Capacitacion> readAll() throws Exception {
-		List<Capacitacion> listCapacitaciones = new ArrayList<>();
+	public ArrayList<Capacitacion> readAll() throws Exception {
+		ArrayList<Capacitacion> listCapacitaciones = new ArrayList<>();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

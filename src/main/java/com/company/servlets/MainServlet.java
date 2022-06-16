@@ -8,11 +8,11 @@ import javax.servlet.http.HttpSession;
 import entities.Usuario;
 
 public class MainServlet extends HttpServlet {
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected Usuario usuario = null;
+	public HttpServletRequest request;
+	public HttpServletResponse response;
+	public Usuario usuario = new Usuario();
 	
-	protected void processRequest(String view) {
+	protected void index(String view) {
 //		if(verifyAuth(){
 //			usuario
 //		}
@@ -36,7 +36,7 @@ public class MainServlet extends HttpServlet {
 
 	protected void showView(String view) {
 		try {
-			request.getRequestDispatcher(view + ".jsp").include(request, response);
+			request.getRequestDispatcher(view + ".jsp").include(this.request, this.response);
 			// request.getRequestDispatcher("/" + view + ".jsp").forward(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

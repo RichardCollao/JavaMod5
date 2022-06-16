@@ -15,7 +15,7 @@ public class Login extends MainServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		processRequest("/login");
+		index("/login");
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class Login extends MainServlet {
 			session.setAttribute("authenticated", true);
 			session.setAttribute("id_usuario", usuario.getIdUsuario());
 			session.setAttribute("type", usuario.getType());
-			processRequest("/inicio");
+			index("/inicio");
 		} else {
-			processRequest("/login");
+			index("/login");
 		}
 
 		System.out.println(request.toString());

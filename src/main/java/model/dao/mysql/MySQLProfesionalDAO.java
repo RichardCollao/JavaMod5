@@ -3,7 +3,6 @@ package model.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import entities.Profesional;
 import model.dao.interfaces.IProfesional;
 
@@ -117,8 +116,8 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 	}
 
 	@Override
-	public List<Profesional> readAll() throws Exception {
-		List<Profesional> listProfesionals = new ArrayList<>();
+	public ArrayList<Profesional> readAll() throws Exception {
+		ArrayList<Profesional> listProfesionals = new ArrayList<>();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

@@ -3,7 +3,6 @@ package model.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import entities.Cliente;
 import model.dao.interfaces.ICliente;
 
@@ -135,8 +134,8 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 	}
 
 	@Override
-	public List<Cliente> readAll() throws Exception {
-		List<Cliente> listClientes = new ArrayList<>();
+	public ArrayList<Cliente> readAll() throws Exception {
+		ArrayList<Cliente> listClientes = new ArrayList<>();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

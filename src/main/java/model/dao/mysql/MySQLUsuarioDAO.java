@@ -3,7 +3,6 @@ package model.dao.mysql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import entities.Usuario;
 import model.dao.interfaces.IUsuario;
 
@@ -97,8 +96,8 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	}
 
 	@Override
-	public List<Usuario> readAll() throws Exception {
-		List<Usuario> listUsuarios = new ArrayList<>();
+	public ArrayList<Usuario> readAll() throws Exception {
+		ArrayList<Usuario> listUsuarios = new ArrayList<>();
 		try {
 
 			this.connect();
