@@ -18,9 +18,7 @@
 
 	<%@ include file="./menu.jsp"%>
 
-
 	<main>
-
 		<div class="d-flex justify-content-center">
 			<form action="./login" method="post">
 				<div class="mb-3">

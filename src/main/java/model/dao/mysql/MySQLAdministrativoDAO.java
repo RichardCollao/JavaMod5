@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Usuario;
 import entities.Administrativo;
 import model.dao.interfaces.IAdministrativo;
 

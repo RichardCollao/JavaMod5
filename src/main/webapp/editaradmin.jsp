@@ -14,26 +14,7 @@
 <body>
 
 
-
-	  <nav class="navbar navbar-expand-sm bg-light">
-    <div class="container">
-      <!-- Links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="./inicio">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./contacto">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./capacitacion">Capacitacion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./crearusuario.html">Registrate</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<%@ include file="./menu.jsp"%>
 
 <section class="vh-100" style="background-color: #eee;">
   <div class="container h-100">
@@ -111,11 +92,6 @@
     </div>
   </div>
 </section>
-<footer>
-		<div class="container">
-			<div style="text-align: center">Richard Collao</div>
-			<div style="text-align: center">Fullstack Java - 2022</div>
-		</div>
-	</footer>
+<%@ include file="./footer.jsp"%>
 </body>
 </html>

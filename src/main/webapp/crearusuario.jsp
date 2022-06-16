@@ -115,12 +115,7 @@
     </div>
   </div>
 </section>
-<footer>
-		<div class="container">
-			<div style="text-align: center">Richard Collao</div>
-			<div style="text-align: center">Fullstack Java - 2022</div>
-		</div>
-	</footer>
+<%@ include file="./footer.jsp"%>
 </body>
 </html>
 </body>

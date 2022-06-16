@@ -128,7 +128,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	}
 
 	public Usuario verifyCredentials(String correo, String clave) throws Exception {
-		Usuario usuario = null; // new Usuario();
+		Usuario usuario = new Usuario();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

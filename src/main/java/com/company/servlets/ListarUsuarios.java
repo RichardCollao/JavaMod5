@@ -11,9 +11,11 @@ import model.dao.mysql.MySQLUsuarioDAO;
 public class ListarUsuarios extends MainServlet{
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, Exception {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
 		List<Usuario> usurariosList =  db.readAll();
+		System.out.println("it's showtime");
 
 		for (Usuario usuario : usurariosList) {
 			System.out.println(usuario.toString());
