@@ -15,12 +15,14 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			this.connect();
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO usuario(nombre, fecha_nacimiento, run) VALUES (?,?,?);");
-			
+			sql.append("INSERT INTO usuario(nombre, correo, clave, fecha_nacimiento, run) VALUES (?,?,?,?,?);");
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getNombreUsuario());
-			st.setString(2, usuario.getFechaNacimiento());
-			st.setString(3, usuario.getRun());
+			st.setString(2, usuario.getCorreo());
+			st.setString(3, usuario.getClave());
+			st.setString(4, usuario.getFechaNacimiento());
+			st.setString(5, usuario.getRun());
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -33,13 +35,15 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE usuario SET nombre=?, fecha_nacimiento=?, run=? WHERE id_usuario=?;");
-			
+			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=? WHERE id_usuario=?;");
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getNombreUsuario());
-			st.setString(2, usuario.getFechaNacimiento());
-			st.setString(3, usuario.getRun());
-			st.setInt(4, usuario.getIdUsuario());
+			st.setString(2, usuario.getCorreo());
+			st.setString(3, usuario.getClave());
+			st.setString(4, usuario.getFechaNacimiento());
+			st.setString(5, usuario.getRun());
+			st.setInt(6, usuario.getIdUsuario());
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -53,7 +57,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("DELETE usuario WHERE id_usuario=?;");
-			
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, usuario.getIdUsuario());
 		} catch (Exception e) {
@@ -69,13 +73,15 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM usuario WHERE id_usuario=?;");
-			
+			sql.append("SELECT * FROM usuario WHERE id_usuario=?;");// Tambien borrara la table con relacion de llave foranea
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, idUsuario);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setClave(rs.getString("clave"));
 				usuario.setNombreUsuario(rs.getString("nombre"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
@@ -98,12 +104,14 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario;");
-			
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setClave(rs.getString("clave"));
 				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
@@ -118,23 +126,23 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		}
 		return listUsuarios;
 	}
-	
+
 	public Usuario verifyCredentials(String correo, String clave) throws Exception {
-		Usuario usuario = null; //new Usuario();
+		Usuario usuario = null; // new Usuario();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario WHERE correo=? AND clave=?;");
-			
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setString(1, correo);
 			st.setString(2, clave);
-			
+
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
-				usuario.setNombreUsuario(rs.getString("correo"));
-				usuario.setNombreUsuario(rs.getString("clave"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setClave(rs.getString("clave"));
 				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
@@ -149,5 +157,5 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		}
 		return usuario;
 	}
-	
+
 }
