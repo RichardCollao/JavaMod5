@@ -1,20 +1,15 @@
 package com.company.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import entities.Usuario;
 import model.dao.mysql.MySQLUsuarioDAO;
 
 
-public class ListarCapacitaciones extends HttpServlet {
+public class ListarCapacitaciones extends MainServlet{
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
@@ -27,22 +22,16 @@ public class ListarCapacitaciones extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.request = request;
+		this.response = response;
+		processRequest("/capacitaciones");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			processRequest(request, response);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.request = request;
+		this.response = response;
+		processRequest("/capacitaciones");
 	}
 
 	@Override
