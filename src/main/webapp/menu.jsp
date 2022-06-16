@@ -4,7 +4,8 @@
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="./inicio">Inicio</a></li>
 			<li class="nav-item"><a class="nav-link" href="./contacto">Contacto</a></li>
-			<li class="nav-item"><a class="nav-link" href="./capacitacion">Capacitacion</a></li>
+			<li class="nav-item"><a class="nav-link" href="./capacitaciones">Capacitaciones</a></li>
+			<li class="nav-item"><a class="nav-link" href="./usuarios">Usuarios</a></li>
 			<li class="nav-item"><a class="nav-link" href="./login">Login</a></li>
 		</ul>
 	</div>

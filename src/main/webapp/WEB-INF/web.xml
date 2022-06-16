@@ -43,11 +43,11 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListarCapacitaciones</servlet-name>
-		<url-pattern>/listar_capacitaciones</url-pattern>
+		<url-pattern>/capacitaciones</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListarUsuarios</servlet-name>
-		<url-pattern>/listar_usuarios</url-pattern>
+		<url-pattern>/usuarios</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
