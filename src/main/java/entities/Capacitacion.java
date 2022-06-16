@@ -10,6 +10,10 @@ public class Capacitacion {
     private String duracion; //  máximo 70 caracteres
     private Integer cantidadAsistentes; // obligatorio, número entero menor que 1000
     
+    public Capacitacion() {
+	super();
+    }
+
     public Capacitacion(Integer idCapacitacion, String rutEmpresa, String dia, String hora, String lugar,
 	    String duracion, Integer cantidadAsistentes) {
 	super();

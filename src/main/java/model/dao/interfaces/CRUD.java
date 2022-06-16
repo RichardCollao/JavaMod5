@@ -3,13 +3,13 @@ import java.util.List;
 
 public interface CRUD<T> {
 
-    public void register(T a) throws Exception;
+    public void create(T a) throws Exception;
 
-    public void modify(T a) throws Exception;
+    public void update(T a) throws Exception;
 
-    public void remove(T a) throws Exception;
+    public void delete(T a) throws Exception;
 
-    public List<T> getOne(int id) throws Exception;
+    public T readOne(int id) throws Exception;
 
-    public List<T> getAll() throws Exception;
+    public List<T> readAll() throws Exception;
 }
