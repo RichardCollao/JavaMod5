@@ -6,6 +6,8 @@ package com.company.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,30 +34,18 @@ public class Autenticacion extends HttpServlet {
             String usuario = request.getParameter("usuario");
             String clave = request.getParameter("clave");
 
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("clave", clave);
+            
+//            Object session.getAttribute("clave");
+//            void session.setAttribute("clave", Object objeto);
 
+            
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Autenticacion</title>");
-            out.println("</head>");
-            out.println("<body>");
+            RequestDispatcher rd = request.getRequestDispatcher("/autenticacion.jsp");
+//            rd.include(request, response);
+            rd.forward(request, response);
             
-            
-            if (usuario.equals("admin")) {
-                out.println("El usuario corresponde");
-            } else {
-                out.println("El usuario no corresponde");
-            }
-            if (clave.equals("1234")) {
-                out.println("La clave corresponde");
-            } else {
-                out.println("La clave no corresponde");
-            }
-            
-            
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

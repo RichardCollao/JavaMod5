@@ -18,20 +18,7 @@
 
 <body>
 
-	<nav class="navbar navbar-expand-sm bg-light">
-		<div class="container">
-			<!-- Links -->
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="./inicio">Inicio</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="./contacto">Contacto</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="./capacitacion">Capacitacion</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
+	<%@ include file="./menu.jsp"%>
 
 	<main>
 		<div class="container">
@@ -42,13 +29,6 @@
 		</div>
 	</main>
 
-	<footer>
-		<div class="container">
-			<div style="text-align: center">Richard Collao</div>
-			<div style="text-align: center">Fullstack Java - 2022</div>
-		</div>
-	</footer>
-
-</body>
+	<%@ include file="./footer.jsp"%></body>
 
 </html>
