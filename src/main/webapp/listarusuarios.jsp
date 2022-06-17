@@ -2,8 +2,7 @@
 <%@ page import="entities.Usuario"%>
 
 <%
-ArrayList<Usuario> usuariosList = new ArrayList<Usuario>();
-usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
+ArrayList<Usuario> usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
 %>
 
 <!DOCTYPE html>
@@ -24,7 +23,7 @@ usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
 
 	<%@ include file="./menu.jsp"%>
 
-	<section class="vh-100" style="background-color: #eee;">
+	<section>
 		<div class="container mt-3">
 			<h2>Lista de usuarios</h2>
 			<hr />
@@ -44,17 +43,16 @@ usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
 					for (Usuario usuario : usuariosList) {
 					%>
 					<tr>
-
-						<td><%= usuario.getNombreUsuario()%></td>
-						<td><%= usuario.getRun()%></td>
-						<td><%= usuario.getCorreo()%></td>
-						<td><%= usuario.getFechaNacimiento()%></td>
-						<td><%= usuario.getType()%></td>
+						<td><%=usuario.getNombreUsuario()%></td>
+						<td><%=usuario.getRun()%></td>
+						<td><%=usuario.getCorreo()%></td>
+						<td><%=usuario.getFechaNacimiento()%></td>
+						<td><%=usuario.getType()%></td>
 						<td>[Borrar]&nbsp;[Mostrar]</td>
-						<%
-						}
-						%>
 					</tr>
+					<%
+					}
+					%>
 				</tbody>
 			</table>
 		</div>

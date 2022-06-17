@@ -2,8 +2,7 @@
 <%@ page import="entities.Capacitacion"%>
 
 <%
-ArrayList<Capacitacion> capacitacionesList = new ArrayList<Capacitacion>();
-capacitacionesList = (ArrayList<Capacitacion>) request.getAttribute("capacitacionesList");
+ArrayList<Capacitacion> capacitacionesList = (ArrayList<Capacitacion>) request.getAttribute("capacitacionesList");
 %>
 
 <!DOCTYPE html>
@@ -24,9 +23,9 @@ capacitacionesList = (ArrayList<Capacitacion>) request.getAttribute("capacitacio
 
 	<%@ include file="./menu.jsp"%>
 
-	<section class="vh-100" style="background-color: #eee;">
+	<section>
 		<div class="container mt-3">
-			<h2>Lista de capacitacions</h2>
+			<h2>Lista de capacitaciones</h2>
 			<hr />
 			<table class="table table-striped table-hover">
 				<thead>
@@ -45,17 +44,17 @@ capacitacionesList = (ArrayList<Capacitacion>) request.getAttribute("capacitacio
 					for (Capacitacion capacitacion : capacitacionesList) {
 					%>
 					<tr>
-						<td><%= capacitacion.getRutEmpresa()%></td>
-						<td><%= capacitacion.getDia()%></td>
-						<td><%= capacitacion.getHora()%></td>
-						<td><%= capacitacion.getLugar()%></td>
-						<td><%= capacitacion.getDuracion()%></td>
-						<td><%= capacitacion.getCantidadAsistentes()%></td>
+						<td><%=capacitacion.getRutEmpresa()%></td>
+						<td><%=capacitacion.getDia()%></td>
+						<td><%=capacitacion.getHora()%></td>
+						<td><%=capacitacion.getLugar()%></td>
+						<td><%=capacitacion.getDuracion()%></td>
+						<td><%=capacitacion.getCantidadAsistentes()%></td>
 						<td>[Borrar]&nbsp;[Mostrar]</td>
-						<%
-						}
-						%>
 					</tr>
+					<%
+					}
+					%>
 				</tbody>
 			</table>
 		</div>

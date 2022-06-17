@@ -117,7 +117,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 				capacitacion.setHora(rs.getString("hora"));
 				capacitacion.setLugar(rs.getString("lugar"));
 				capacitacion.setDuracion(rs.getString("duracion"));
-				capacitacion.setCantidadAsistentes(rs.getInt("cantidad_asistente"));
+				capacitacion.setCantidadAsistentes(rs.getInt("cantidad_asistentes"));
 				listCapacitaciones.add(capacitacion);
 			}
 			rs.close();

@@ -2,42 +2,36 @@ package com.company.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.mysql.MySQLCapacitacionDAO;
+
 import entities.Capacitacion;
+import model.dao.mysql.MySQLCapacitacionDAO;
 
-
-public class ListarCapacitaciones extends MainServlet{
+public class Test extends MainServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		
-		MySQLCapacitacionDAO db = new MySQLCapacitacionDAO();
-		ArrayList<Capacitacion> capacitacionesList = new ArrayList<Capacitacion>();
-		try {
-			capacitacionesList = db.readAll();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		for (Capacitacion capacitacion : capacitacionesList) {
-			System.out.println(capacitacion.toString());
-		}
-		
-		request.setAttribute("capacitacionesList", capacitacionesList);
-		index("/listarcapacitaciones");
+		ArrayList<String> errors = new ArrayList<String>();
+		errors.add("Error 1");
+		errors.add("Error 2");
+		errors.add("Error 3");
+
+
+		request.setAttribute("errors", errors);
+		index("/layout");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		index("/capacitaciones");
+		index("/layout");
 	}
 
 	@Override

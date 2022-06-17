@@ -27,7 +27,7 @@ public class ListarUsuarios extends MainServlet{
 //			System.out.println(">>> " + usuario.toString());
 		}
 
-		//request.setAttribute("usuariosList", usuariosList);
+		request.setAttribute("usuariosList", usuariosList);
 		//request.getRequestDispatcher("/listarusuarios.jsp").forward(request, response);
 		
 		index("/listarusuarios");

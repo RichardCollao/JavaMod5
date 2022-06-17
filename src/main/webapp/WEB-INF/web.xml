@@ -28,6 +28,10 @@
 		<servlet-name>Login</servlet-name>
 		<servlet-class>com.company.servlets.Login</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Test</servlet-name>
+		<servlet-class>com.company.servlets.Test</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Inicio</servlet-name>
 		<url-pattern>/inicio</url-pattern>
@@ -55,6 +59,10 @@
 	<servlet-mapping>
 		<servlet-name>Inicio</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/test</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>30</session-timeout>
