@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entities.Usuario;
 import model.dao.mysql.MySQLUsuarioDAO;
+import entities.Usuario;
 
 public class ListarUsuarios extends MainServlet{
 
@@ -24,7 +24,7 @@ public class ListarUsuarios extends MainServlet{
 		}
 
 		for (Usuario usuario : usuariosList) {
-			System.out.println(usuario.toString());
+//			System.out.println(">>> " + usuario.toString());
 		}
 
 		//request.setAttribute("usuariosList", usuariosList);

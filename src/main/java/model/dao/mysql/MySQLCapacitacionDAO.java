@@ -75,9 +75,9 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM usuario, capacitacion ");
-			sql.append("WHERE capacitacion.fk_id_usuario=usuario.id_usuario ");
-			sql.append("AND capacitacion.fk_id_capacitacion=?;");
+			sql.append("SELECT * FROM capacitacion ");
+			sql.append("WHERE id_capacitacion=?;");
+			
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, idCapacitacion);
 			ResultSet rs = st.executeQuery();
@@ -106,14 +106,12 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM usuario, capacitacion ");
-			sql.append("WHERE capacitacion.fk_id_usuario=usuario.id_usuario;");
+			sql.append("SELECT * FROM capacitacion;");
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				Capacitacion capacitacion = new Capacitacion();
-				capacitacion.setIdCapacitacion(rs.getInt("id_capacitacion"));
 				capacitacion.setRutEmpresa(rs.getString("rut_empresa"));
 				capacitacion.setDia(rs.getString("dia"));
 				capacitacion.setHora(rs.getString("hora"));

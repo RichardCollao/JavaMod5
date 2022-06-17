@@ -12,14 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author richard
- */
 public class Inicio extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+
 
 		/* TODO output your page here. You may use following sample code. */
 		request.getRequestDispatcher("/inicio.jsp").forward(request, response);

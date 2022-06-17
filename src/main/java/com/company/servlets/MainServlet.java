@@ -36,6 +36,7 @@ public class MainServlet extends HttpServlet {
 
 	protected void showView(String view) {
 		try {
+			response.setContentType("text/html;charset=UTF-8");
 			request.getRequestDispatcher(view + ".jsp").include(this.request, this.response);
 			// request.getRequestDispatcher("/" + view + ".jsp").forward(request, response);
 		} catch (Exception e) {
