@@ -2,12 +2,10 @@ package com.company.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entities.Usuario;
-import model.dao.mysql.MySQLUsuarioDAO;
+import model.dao.mysql.MySQLCapacitacionDAO;
 
 
 public class ListarCapacitaciones extends MainServlet{
@@ -18,17 +16,17 @@ public class ListarCapacitaciones extends MainServlet{
 		this.response = response;
 		
 		
-		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-		List<Usuario> usurariosList = new ArrayList();
+		MySQLCapacitacionDAO db = new MySQLCapacitacionDAO();
+		ArrayList<entities.Capacitacion> capacitacionesList = new ArrayList<entities.Capacitacion>();
 		try {
-			usurariosList = db.readAll();
+			capacitacionesList = db.readAll();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		for (Usuario usuario : usurariosList) {
-			System.out.println(usuario.toString());
+		for (entities.Capacitacion capacitacion : capacitacionesList) {
+			System.out.println(capacitacion.toString());
 		}
 		
 		

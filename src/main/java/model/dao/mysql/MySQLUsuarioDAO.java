@@ -97,7 +97,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 
 	@Override
 	public ArrayList<Usuario> readAll() throws Exception {
-		ArrayList<Usuario> listUsuarios = new ArrayList<>();
+		ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 		try {
 
 			this.connect();

@@ -102,7 +102,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 
 	@Override
 	public ArrayList<Capacitacion> readAll() throws Exception {
-		ArrayList<Capacitacion> listCapacitaciones = new ArrayList<>();
+		ArrayList<Capacitacion> listCapacitaciones = new ArrayList<Capacitacion>();
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();

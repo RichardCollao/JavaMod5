@@ -1,9 +1,9 @@
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="entities.Usuario"%>
+<%@ page import="entities.Capacitacion"%>
 
 <%
-ArrayList<Usuario> usuariosList = new ArrayList<Usuario>();
-usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
+ArrayList<Capacitacion> capacitacionesList = new ArrayList<Capacitacion>();
+capacitacionesList = (ArrayList<Capacitacion>) request.getAttribute("capacitacionesList");
 %>
 
 <!DOCTYPE html>
@@ -26,30 +26,31 @@ usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");
 
 	<section class="vh-100" style="background-color: #eee;">
 		<div class="container mt-3">
-			<h2>Lista de usuarios</h2>
+			<h2>Lista de capacitacions</h2>
 			<hr />
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Nombre de usuario</th>
-						<th>RUN</th>
-						<th>Correo</th>
-						<th>Fecha de nacimiento</th>
-						<th>Tipo</th>
+						<th>RUT empresa</th>
+						<th>Dia</th>
+						<th>Hora</th>
+						<th>Lugar</th>
+						<th>Duracion</th>
+						<th>Cantidad de asistentes</th>
 						<th>opciones</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-					for (Usuario usuario : usuariosList) {
+					for (Capacitacion capacitacion : capacitacionesList) {
 					%>
 					<tr>
-
-						<td><%= usuario.getNombreUsuario()%></td>
-						<td><%= usuario.getRun()%></td>
-						<td><%= usuario.getCorreo()%></td>
-						<td><%= usuario.getFechaNacimiento()%></td>
-						<td><%= usuario.getType()%></td>
+						<td><%= capacitacion.getRutEmpresa()%></td>
+						<td><%= capacitacion.getDia()%></td>
+						<td><%= capacitacion.getHora()%></td>
+						<td><%= capacitacion.getLugar()%></td>
+						<td><%= capacitacion.getDuracion()%></td>
+						<td><%= capacitacion.getCantidadAsistentes()%></td>
 						<td>[Borrar]&nbsp;[Mostrar]</td>
 						<%
 						}

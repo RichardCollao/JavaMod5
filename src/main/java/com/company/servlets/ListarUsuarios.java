@@ -16,29 +16,28 @@ public class ListarUsuarios extends MainServlet{
 		this.response = response;
 		
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-		ArrayList<Usuario> usuariosList = new ArrayList();
+		ArrayList<Usuario> usuariosList = new ArrayList<Usuario>();
 		try {
 			usuariosList = db.readAll();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("it's showtime");
 
 		for (Usuario usuario : usuariosList) {
 			System.out.println(usuario.toString());
 		}
 
-		request.setAttribute("usuariosList", usuariosList);
-		//index("/listarusuarios");
-		request.getRequestDispatcher("listarusuarios.jsp").forward(request, response);
+		//request.setAttribute("usuariosList", usuariosList);
+		//request.getRequestDispatcher("/listarusuarios.jsp").forward(request, response);
+		
+		index("/listarusuarios");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		index("/listarusuarios");
+		// index("/listarusuarios");
 	}
 
 	@Override
