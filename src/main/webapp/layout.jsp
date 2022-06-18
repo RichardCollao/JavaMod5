@@ -1,7 +1,6 @@
 <%@ page import="java.util.ArrayList"%>
 <%
 String fileJsp = (String) request.getAttribute("fileJsp");
-System.out.println(">>>>>>>>>>>>>>>>><" + fileJsp);
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -22,9 +21,10 @@ System.out.println(">>>>>>>>>>>>>>>>><" + fileJsp);
 </head>
 <body>
 	<%@ include file="./menu.jsp"%>
-	<h2>Test</h2>
 	<%@ include file="./messages.jsp"%>
-	<jsp:include page="<%=fileJsp%>" flush="true" />
+	<div>
+		<jsp:include page="<%=fileJsp%>" flush="true" />
+	</div>
 	<%@ include file="./footer.jsp"%>
 </body>
 </html>

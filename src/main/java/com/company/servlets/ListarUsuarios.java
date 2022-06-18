@@ -30,7 +30,7 @@ public class ListarUsuarios extends MainServlet{
 		request.setAttribute("usuariosList", usuariosList);
 		//request.getRequestDispatcher("/listarusuarios.jsp").forward(request, response);
 		
-		index("/listarusuarios");
+		index("listarusuarios.jsp");
 	}
 
 	@Override

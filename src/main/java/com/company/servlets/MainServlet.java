@@ -17,16 +17,16 @@ public class MainServlet extends HttpServlet {
 
 	}
 
-	protected void index(String view) {
-		// if(verifyAuth(){
-		// usuario
-		// }
-		// verifyAuth(checkPermissions);
-		showView(view);
+	protected void index(String fileJsp) {
+		this.request.setAttribute("fileJsp", fileJsp);
+		if (this.request.getAttribute("errors") == null) {
+			this.request.setAttribute("errors", new ArrayList<String>());
+		}
+		showView(fileJsp);
 	}
 
 	protected void verifyAuth() {
-		HttpSession session = request.getSession();
+		// HttpSession session = request.getSession();
 		// TODO: preguntar si existe una sesion activa
 		// if ((boolean) session.getAttribute("authenticated")) {
 		// showView("/login");
@@ -39,13 +39,12 @@ public class MainServlet extends HttpServlet {
 
 	}
 
-	protected void showView(String view) {
+	protected void showView(String fileJsp) {
+
 		try {
 			this.response.setContentType("text/html;charset=UTF-8");
-			this.request.setAttribute("fileJsp", view);
-			this.request.setAttribute("errors", new ArrayList<String>());
 			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
-			// request.getRequestDispatcher("/" + view + ".jsp").forward(request, response);
+			// this.request.getRequestDispatcher("/layout.jsp").forward(this.request, this.response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

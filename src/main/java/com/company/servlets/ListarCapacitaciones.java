@@ -30,14 +30,14 @@ public class ListarCapacitaciones extends MainServlet{
 		}
 		
 		request.setAttribute("capacitacionesList", capacitacionesList);
-		index("/listarcapacitaciones");
+		index("listarcapacitaciones.jsp");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		index("/capacitaciones");
+//		index("/capacitaciones");
 	}
 
 	@Override

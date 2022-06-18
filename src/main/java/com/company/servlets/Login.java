@@ -18,9 +18,8 @@ public class Login extends MainServlet {
 		this.request = request;
 		this.response = response;
 
-		this.request.setAttribute("errors", new ArrayList<String>());
-		
-		index("login");
+
+		index("login.jsp");
 	}
 
 	@Override
@@ -47,16 +46,12 @@ public class Login extends MainServlet {
 			session.setAttribute("authenticated", true);
 			session.setAttribute("id_usuario", usuario.getIdUsuario());
 			this.request.setAttribute("type", usuario.getType());
-			
-			this.request.setAttribute("errors", new ArrayList<String>());
-			index("inicio");
+
+			index("inicio.jsp");
 		} else {
 			this.request.setAttribute("errors", "El nombre de usuario o contraseña son incorrectos");
-			index("login");
-			
+			index("login.jsp");
 		}
-
-
 	}
 
 	@Override
