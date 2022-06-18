@@ -1,6 +1,8 @@
 package com.company.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,10 @@ public class Login extends MainServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		index("/login");
+
+		this.request.setAttribute("errors", new ArrayList<String>());
+		
+		index("login");
 	}
 
 	@Override
@@ -23,13 +28,13 @@ public class Login extends MainServlet {
 		this.request = request;
 		this.response = response;
 
-		// obtiene las credenciales de acceso desde el formulario login
+		// Obtiene las credenciales de acceso desde el formulario login
 		String correo = (String) request.getAttribute("correo");
 		String clave = (String) request.getAttribute("clave");
 
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
 		Usuario usuario = null;
-		// verifica si existe un usuario en la base de datos que coincida con la tupla de credenciales
+		// Verifica si existe un usuario en la base de datos que coincida con la tupla de credenciales
 		try {
 			usuario = db.verifyCredentials(correo, clave);
 		} catch (Exception e) {
@@ -41,16 +46,16 @@ public class Login extends MainServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("authenticated", true);
 			session.setAttribute("id_usuario", usuario.getIdUsuario());
-			session.setAttribute("type", usuario.getType());
-			index("/inicio");
+			this.request.setAttribute("type", usuario.getType());
+			
+			this.request.setAttribute("errors", new ArrayList<String>());
+			index("inicio");
 		} else {
-			index("/login");
+			this.request.setAttribute("errors", "El nombre de usuario o contraseña son incorrectos");
+			index("login");
+			
 		}
 
-		System.out.println(request.toString());
-		System.out.println("POST");
-		System.out.println("Usuario: " + usuario);
-		System.out.println("Clave: " + clave);
 
 	}
 

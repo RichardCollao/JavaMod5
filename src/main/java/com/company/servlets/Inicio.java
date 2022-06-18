@@ -12,22 +12,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Inicio extends HttpServlet {
+public class Inicio extends MainServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-		/* TODO output your page here. You may use following sample code. */
-		request.getRequestDispatcher("/inicio.jsp").forward(request, response);
+		index("login");
+		// request.getRequestDispatcher("/inicio.jsp").forward(request, response);
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.request = request;
+		this.response = response;
 		processRequest(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.request = request;
+		this.response = response;
 		processRequest(request, response);
 	}
 

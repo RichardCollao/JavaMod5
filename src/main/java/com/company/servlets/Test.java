@@ -23,6 +23,7 @@ public class Test extends MainServlet {
 		errors.add("Error 3");
 
 
+		request.setAttribute("fileJsp", "login.jsp");
 		request.setAttribute("errors", errors);
 		index("/layout");
 	}
