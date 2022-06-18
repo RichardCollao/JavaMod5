@@ -14,7 +14,7 @@ public class MainServlet extends HttpServlet {
 	public HttpServletResponse response;
 
 	public MainServlet() {
-		this.request.setAttribute("errors", new ArrayList<String>());
+
 	}
 
 	protected void index(String view) {
@@ -43,6 +43,7 @@ public class MainServlet extends HttpServlet {
 		try {
 			this.response.setContentType("text/html;charset=UTF-8");
 			this.request.setAttribute("fileJsp", view);
+			this.request.setAttribute("errors", new ArrayList<String>());
 			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
 			// request.getRequestDispatcher("/" + view + ".jsp").forward(request, response);
 		} catch (Exception e) {
