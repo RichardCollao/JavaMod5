@@ -14,24 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Inicio extends MainServlet {
 
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		index("login");
-		// request.getRequestDispatcher("/inicio.jsp").forward(request, response);
-	}
-
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		processRequest(request, response);
+		index("inicio.jsp");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.request = request;
 		this.response = response;
-		processRequest(request, response);
+		index("inicio.jsp");
 	}
 
 	@Override
