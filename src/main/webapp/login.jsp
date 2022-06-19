@@ -1,14 +1,37 @@
 <main>
-	<div class="d-flex justify-content-center">
-		<form action="./login" method="post">
-			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">Email address</label> <input name="usuario" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-				<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-			</div>
-			<div class="mb-3">
-				<label for="exampleInputPassword1" class="form-label">Password</label> <input name="clave" type="password" class="form-control" id="exampleInputPassword1">
-			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
-		</form>
+	<div class="container">
+		<div style="margin: 15px auto; width: 500px; padding: 30px">
+			<h2 style="text-align: center;">Login</h2>
+			<form id="formulario" action="./login" method="post">
+				<!-- Email input -->
+				<div class="mt-3">
+					<label class="form-label">Correo:</label> <input type="email" class="form-control" placeholder="" name="correo" value="" />
+				</div>
+
+				<!-- Password input -->
+				<div class="mt-3">
+					<label class="form-label">Contraseña:</label> <input type="password" class="form-control" placeholder="" name="clave" value="" />
+				</div>
+				<!-- Checkbox -->
+				<div class="mt-3">
+					<div class="form-check">
+						<label class="form-check-label" for="form1Example3"> Remember me </label><input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+					</div>
+				</div>
+				<!-- Submit button -->
+				<div class="mt-3">
+					<button type="submit" class="btn btn-primary">Enviar</button>
+				</div>
+				<div class="mt-3">
+					Don't have an account? <a href="#!">Register here</a> &nbsp;&nbsp;&nbsp;<a href="#!">Forgot password?</a>
+				</div>
+			</form>
+		</div>
 	</div>
 </main>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		document.getElementById("formulario").addEventListener("submit",
+				validarFormulario);
+	});
+</script>

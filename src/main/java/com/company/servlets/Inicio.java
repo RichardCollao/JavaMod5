@@ -23,14 +23,6 @@ public class Inicio extends MainServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-		index("inicio.jsp");
+		doGet(request, response);
 	}
-
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
-
 }

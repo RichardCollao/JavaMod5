@@ -98,7 +98,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 
 	@Override
 	public Cliente readOne(int idCliente) throws Exception {
-		Cliente cliente = new Cliente();
+		Cliente cliente = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
@@ -110,6 +110,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			st.setInt(1, idCliente);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				cliente = new Cliente();
 				cliente.setIdUsuario(rs.getInt("id_cliente"));
 				cliente.setCorreo(rs.getString("correo"));
 				cliente.setClave(rs.getString("clave"));

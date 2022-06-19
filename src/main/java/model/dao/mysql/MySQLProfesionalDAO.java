@@ -85,7 +85,7 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 
 	@Override
 	public Profesional readOne(int idProfesional) throws Exception {
-		Profesional profesional = new Profesional();
+		Profesional profesional = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
@@ -97,6 +97,7 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			st.setInt(1, idProfesional);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				profesional = new Profesional();
 				profesional.setIdUsuario(rs.getInt("id_profesional"));
 				profesional.setCorreo(rs.getString("correo"));
 				profesional.setClave(rs.getString("clave"));

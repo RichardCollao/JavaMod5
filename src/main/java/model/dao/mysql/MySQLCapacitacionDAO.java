@@ -71,17 +71,18 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 
 	@Override
 	public Capacitacion readOne(int idCapacitacion) throws Exception {
-		Capacitacion capacitacion = new Capacitacion();
+		Capacitacion capacitacion = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM capacitacion ");
 			sql.append("WHERE id_capacitacion=?;");
-			
+
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, idCapacitacion);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				capacitacion = new Capacitacion();
 				capacitacion.setIdCapacitacion(rs.getInt("id_capacitacion"));
 				capacitacion.setRutEmpresa(rs.getString("rut_empresa"));
 				capacitacion.setDia(rs.getString("dia"));

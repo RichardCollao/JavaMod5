@@ -68,7 +68,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 
 	@Override
 	public Usuario readOne(int idUsuario) throws Exception {
-		Usuario usuario = new Usuario();
+		Usuario usuario = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
@@ -78,6 +78,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			st.setInt(1, idUsuario);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
 				usuario.setCorreo(rs.getString("correo"));
 				usuario.setClave(rs.getString("clave"));
@@ -127,7 +128,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	}
 
 	public Usuario verifyCredentials(String correo, String clave) throws Exception {
-		Usuario usuario = new Usuario();
+		Usuario usuario = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
@@ -139,6 +140,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				usuario = new Usuario();
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
 				usuario.setCorreo(rs.getString("correo"));
 				usuario.setClave(rs.getString("clave"));

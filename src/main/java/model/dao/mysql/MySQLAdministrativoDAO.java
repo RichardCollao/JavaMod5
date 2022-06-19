@@ -8,7 +8,7 @@ import model.dao.interfaces.IAdministrativo;
 
 public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo {
 	public int last_inserted_id;
-	
+
 	@Override
 	public void create(Administrativo administrativo) throws Exception {
 		try {
@@ -39,7 +39,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			this.close();
 		}
 	}
-	
+
 	@Override
 	public void update(Administrativo administrativo) throws Exception {
 		try {
@@ -67,7 +67,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			this.close();
 		}
 	}
-	
+
 	@Override
 	public void delete(Administrativo administrativo) throws Exception {
 		try {
@@ -86,7 +86,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 
 	@Override
 	public Administrativo readOne(int idAdministrativo) throws Exception {
-		Administrativo administrativo = new Administrativo();
+		Administrativo administrativo = null;
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
@@ -98,6 +98,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			st.setInt(1, idAdministrativo);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
+				administrativo = new Administrativo();
 				administrativo.setIdUsuario(rs.getInt("id_administrativo"));
 				administrativo.setCorreo(rs.getString("correo"));
 				administrativo.setClave(rs.getString("clave"));

@@ -24,13 +24,6 @@ public class Contacto extends MainServlet {
 		if (!validated) {
 			this.request.setAttribute("errors", "El nombre de usuario o contraseña son incorrectos");
 		}
-
 		index("contacto.jsp");
 	}
-
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
-
 }

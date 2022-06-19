@@ -1,11 +1,10 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%
 String fileJsp = (String) request.getAttribute("fileJsp");
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />

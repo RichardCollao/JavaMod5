@@ -24,25 +24,13 @@ public class ListarCapacitaciones extends MainServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		for (Capacitacion capacitacion : capacitacionesList) {
-			System.out.println(capacitacion.toString());
-		}
-		
 		request.setAttribute("capacitacionesList", capacitacionesList);
 		index("listarcapacitaciones.jsp");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-//		index("/capacitaciones");
+		doGet(request, response);
 	}
-
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
 
 }

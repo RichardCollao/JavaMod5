@@ -30,7 +30,7 @@ ArrayList<Usuario> usuariosList = (ArrayList<Usuario>) request.getAttribute("usu
 					<td><%=usuario.getCorreo()%></td>
 					<td><%=usuario.getFechaNacimiento()%></td>
 					<td><%=usuario.getType()%></td>
-					<td>[Borrar]&nbsp;[Mostrar]</td>
+					<td><span class="float-end">[Borrar]</span>&nbsp;<span>[Mostrar]</span></td>
 				</tr>
 				<%
 				}

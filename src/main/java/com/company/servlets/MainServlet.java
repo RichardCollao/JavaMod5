@@ -12,25 +12,27 @@ import entities.Usuario;
 public class MainServlet extends HttpServlet {
 	public HttpServletRequest request;
 	public HttpServletResponse response;
+	protected ArrayList<String> errors = new ArrayList<String>();
+
+	Usuario usuarioAut = null;
 
 	public MainServlet() {
 
 	}
 
 	protected void index(String fileJsp) {
+		verifyAuth();
+
 		this.request.setAttribute("fileJsp", fileJsp);
-		if (this.request.getAttribute("errors") == null) {
-			this.request.setAttribute("errors", new ArrayList<String>());
-		}
+
 		showView(fileJsp);
 	}
 
 	protected void verifyAuth() {
-		// HttpSession session = request.getSession();
-		// TODO: preguntar si existe una sesion activa
-		// if ((boolean) session.getAttribute("authenticated")) {
-		// showView("/login");
-		// }
+		usuarioAut = new Authentication(request.getSession()).getUserAuth();
+		if(usuarioAut != null) {
+			this.request.setAttribute("usuarioAtenticado", usuarioAut.getNombreUsuario());
+		}
 	}
 
 	protected void checkPermissions() {
@@ -40,11 +42,10 @@ public class MainServlet extends HttpServlet {
 	}
 
 	protected void showView(String fileJsp) {
-
+		this.request.setAttribute("errors", this.errors);
 		try {
 			this.response.setContentType("text/html;charset=UTF-8");
 			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
-			// this.request.getRequestDispatcher("/layout.jsp").forward(this.request, this.response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
