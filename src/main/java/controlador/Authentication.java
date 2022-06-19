@@ -1,4 +1,4 @@
-package com.company.servlets;
+package controlador;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,14 +12,11 @@ public class Authentication {
 	}
 
 	public Usuario getUserAuth() {
-		boolean authenticated = false;
+		Boolean authenticated;
 		Usuario usuario = null;
-
-		if ((Boolean) session.getAttribute("authenticated") != null) {
-			authenticated = true;
-		}
-
-		Integer idUsuario = (Integer) session.getAttribute("id_usuario");
+		Integer idUsuario = (Integer) session.getAttribute("idUsuario");
+		// Ya que la sesion se destruye retornara null
+		authenticated = (Boolean) session.getAttribute("authenticated") != null ? true : false;
 		if (authenticated == true && idUsuario != null && idUsuario > 0) {
 			usuario = loadUser(idUsuario);
 		}

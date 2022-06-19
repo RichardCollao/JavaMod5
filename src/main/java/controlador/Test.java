@@ -1,4 +1,4 @@
-package com.company.servlets;
+package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;

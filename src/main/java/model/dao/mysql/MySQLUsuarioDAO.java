@@ -14,7 +14,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			this.connect();
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO usuario(nombre, correo, clave, fecha_nacimiento, run) VALUES (?,?,?,?,?);");
+			sql.append("INSERT INTO usuario(nombre_usuario, correo, clave, fecha_nacimiento, run) VALUES (?,?,?,?,?);");
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getNombreUsuario());
@@ -82,7 +82,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 				usuario.setIdUsuario(rs.getInt("id_usuario"));
 				usuario.setCorreo(rs.getString("correo"));
 				usuario.setClave(rs.getString("clave"));
-				usuario.setNombreUsuario(rs.getString("nombre"));
+				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
 			}

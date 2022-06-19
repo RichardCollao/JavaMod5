@@ -1,4 +1,4 @@
-package com.company.servlets;
+package controlador;
 
 public abstract class Utilities {
 

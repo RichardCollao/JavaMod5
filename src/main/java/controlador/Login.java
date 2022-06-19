@@ -1,4 +1,4 @@
-package com.company.servlets;
+package controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class Login extends MainServlet {
 		} else {
 			index("login.jsp");
 		}
-		// System.out.println("logout: "+ logout);
 	}
 
 	@Override
@@ -40,7 +39,6 @@ public class Login extends MainServlet {
 		String clave = (String) request.getParameter("clave");
 
 		this.errors = validateForm(correo, clave);
-
 		if (this.errors.isEmpty()) {
 			Usuario usuario = verifyCredentials(correo, clave);
 			if (usuario != null) {
@@ -54,7 +52,6 @@ public class Login extends MainServlet {
 	}
 
 	private Usuario verifyCredentials(String correo, String clave) {
-
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
 		Usuario usuario = null;
 
@@ -70,18 +67,13 @@ public class Login extends MainServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("authenticated", true);
 		session.setAttribute("usuarioAtenticado", usuario.getNombreUsuario());
-		session.setAttribute("id_usuario", usuario.getIdUsuario());
+		session.setAttribute("idUsuario", usuario.getIdUsuario());
 	}
 
 	private void logOut() {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		try {
-			response.sendRedirect(request.getContextPath() + "/inicio");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		redirect(request.getContextPath() + "/login");
 	}
 
 	private ArrayList<String> validateForm(String correo, String clave) {
@@ -96,7 +88,6 @@ public class Login extends MainServlet {
 				errors.add("El valor del campo 'correo' no es valido.");
 			}
 		}
-
 		if (clave == null || clave.length() < 6) {
 			errors.add("El campo 'Contraseña' debe contener minimo 6 caracteres.");
 		}

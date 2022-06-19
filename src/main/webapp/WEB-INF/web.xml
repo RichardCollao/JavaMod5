@@ -7,31 +7,31 @@
 
 	<servlet>
 		<servlet-name>Inicio</servlet-name>
-		<servlet-class>com.company.servlets.Inicio</servlet-class>
+		<servlet-class>controlador.Inicio</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Contacto</servlet-name>
-		<servlet-class>com.company.servlets.Contacto</servlet-class>
+		<servlet-class>controlador.Contacto</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Capacitacion</servlet-name>
-		<servlet-class>com.company.servlets.Capacitacion</servlet-class>
+		<servlet-class>controlador.Capacitacion</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ListarCapacitaciones</servlet-name>
-		<servlet-class>com.company.servlets.ListarCapacitaciones</servlet-class>
+		<servlet-class>controlador.ListarCapacitaciones</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ListarUsuarios</servlet-name>
-		<servlet-class>com.company.servlets.ListarUsuarios</servlet-class>
+		<servlet-class>controlador.ListarUsuarios</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
-		<servlet-class>com.company.servlets.Login</servlet-class>
+		<servlet-class>controlador.Login</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Test</servlet-name>
-		<servlet-class>com.company.servlets.Test</servlet-class>
+		<servlet-class>controlador.Test</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Inicio</servlet-name>
