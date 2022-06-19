@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entities.Usuario;
+import modelo.entities.Usuario;
 
 public class MainServlet extends HttpServlet {
 	public HttpServletRequest request;

@@ -7,8 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Capacitacion;
-import model.dao.mysql.MySQLCapacitacionDAO;
+import modelo.dao.mysql.MySQLCapacitacionDAO;
+import modelo.entities.Capacitacion;
 
 public class Test extends MainServlet {
 

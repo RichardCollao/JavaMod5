@@ -2,8 +2,8 @@ package controlador;
 
 import javax.servlet.http.HttpSession;
 
-import entities.Usuario;
-import model.dao.mysql.MySQLUsuarioDAO;
+import modelo.dao.mysql.MySQLUsuarioDAO;
+import modelo.entities.Usuario;
 
 public class Authentication {
 	private HttpSession session;

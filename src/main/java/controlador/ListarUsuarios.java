@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.mysql.MySQLUsuarioDAO;
-import entities.Usuario;
+
+import modelo.dao.mysql.MySQLUsuarioDAO;
+import modelo.entities.Usuario;
 
 public class ListarUsuarios extends MainServlet {
 

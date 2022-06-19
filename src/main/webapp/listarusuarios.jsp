@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="entities.Usuario"%>
+<%@ page import="modelo.entities.Usuario"%>
 
 <%
 ArrayList<Usuario> usuariosList = (ArrayList<Usuario>) request.getAttribute("usuariosList");

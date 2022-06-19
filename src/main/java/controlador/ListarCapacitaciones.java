@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dao.mysql.MySQLCapacitacionDAO;
-import entities.Capacitacion;
+
+import modelo.dao.mysql.MySQLCapacitacionDAO;
+import modelo.entities.Capacitacion;
 
 
 public class ListarCapacitaciones extends MainServlet{

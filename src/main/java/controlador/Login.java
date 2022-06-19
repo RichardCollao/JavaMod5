@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import entities.Usuario;
-import model.dao.mysql.MySQLUsuarioDAO;
+import modelo.dao.mysql.MySQLUsuarioDAO;
+import modelo.entities.Usuario;
 
 public class Login extends MainServlet {
 
@@ -78,7 +78,7 @@ public class Login extends MainServlet {
 
 	private ArrayList<String> validateForm(String correo, String clave) {
 		errors = new ArrayList<String>();
-
+		// validar correo
 		if (correo == null || correo.length() == 0) {
 			errors.add("El campo 'correo' esta vacio.");
 		} else {
@@ -88,6 +88,7 @@ public class Login extends MainServlet {
 				errors.add("El valor del campo 'correo' no es valido.");
 			}
 		}
+		// validar contraseña
 		if (clave == null || clave.length() < 6) {
 			errors.add("El campo 'Contraseña' debe contener minimo 6 caracteres.");
 		}
