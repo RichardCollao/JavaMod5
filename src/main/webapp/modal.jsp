@@ -11,22 +11,12 @@
 	</div>
 </div>
 
-
-
-
 <script type="text/javascript">
 	window.onload = function() {
-
 		var modal = new bootstrap.Modal(
 				document.getElementById('exampleModal'), {
 					keyboard : false
 				})
-
-		// 		var myModalEl = document.getElementById('exampleModal')
-		// 		var modal = bootstrap.Modal.getInstance(myModalEl);
-
-		console.log("------");
-		console.log(modal);
 		modal.show();
 	};
 </script>

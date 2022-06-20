@@ -6,31 +6,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.dao.mysql.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
-import controlador.Form;
 
 public class CrearCapacitacion extends MainServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-		this.form = new Form(this.request);
-		
+		init(request, response);
+				
 		index("crearcapacitacion.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-		this.form = new Form(this.request);
+		init(request, response);;
 			
 		String[] diasArray = new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-		String rut_empresa = this.form.getStringOrBlank("rut_empresa");
-		Integer iDia = this.form.getIntegerOrZero("dia");
+		String rut_empresa = form.getStringOrBlank("rut_empresa");
+		Integer iDia = form.getIntegerOrZero("dia");
 		String dia = diasArray[iDia + 1];
-		String hora = this.form.getStringOrBlank("hora");
-		String lugar = this.form.getStringOrBlank("lugar");
-		String duracion = this.form.getStringOrBlank("duracion");
-		Integer cantidad_asistentes = this.form.getIntegerOrZero("cantidad_asistentes");
+		String hora = form.getStringOrBlank("hora");
+		String lugar = form.getStringOrBlank("lugar");
+		String duracion = form.getStringOrBlank("duracion");
+		Integer cantidad_asistentes = form.getIntegerOrZero("cantidad_asistentes");
 
 		Capacitacion capacitacion = new Capacitacion();
 		capacitacion.setRutEmpresa(rut_empresa);

@@ -18,12 +18,10 @@ public class Login extends MainServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-		this.errors = new ArrayList<String>();
-		String login = request.getParameter("login");
+		init(request, response);
 
-		if (login != null && login.equals("out")) {
+		
+		if (request.getParameter("login") != null && request.getParameter("login").equals("out")) {
 			logOut();
 		} else {
 			index("login.jsp");
@@ -32,18 +30,17 @@ public class Login extends MainServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-
-		String correo = Utilities.stringNotNull(request.getParameter("correo"));
-		String clave = Utilities.stringNotNull(request.getParameter("clave"));
+		init(request, response);
+		
+		String correo = form.getStringOrBlank("correo");
+		String clave = form.getStringOrBlank("clave");
 
 		this.errors = validateForm(correo, clave);
 		if (this.errors.isEmpty()) {
 			Usuario usuario = verifyCredentials(correo, clave);
 			if (usuario != null) {
 				saveAuthInSession(usuario);
-				response.sendRedirect(request.getContextPath() + "/inicio");
+				redirect(request.getContextPath() + "/inicio");
 			} else {
 				this.errors.add("El nombre de usuario o contraseña son incorrectos");
 			}
@@ -66,7 +63,6 @@ public class Login extends MainServlet {
 	private void saveAuthInSession(Usuario usuario) {
 		HttpSession session = request.getSession();
 		session.setAttribute("authenticated", true);
-		session.setAttribute("usuarioAtenticado", usuario.getNombreUsuario());
 		session.setAttribute("idUsuario", usuario.getIdUsuario());
 	}
 

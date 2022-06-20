@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%
-String usuarioAtenticado = (String) session.getAttribute("usuarioAtenticado");
+String nameUserAuth = (String) request.getAttribute("nameUserAuth");
 %>
 <div class="container-fluid menu">
 	<div class="container">
@@ -23,11 +23,11 @@ String usuarioAtenticado = (String) session.getAttribute("usuarioAtenticado");
 			</div>
 			<div class="col col-lg-2">
 				<%
-				if (usuarioAtenticado != null) {
+				if (nameUserAuth != null) {
 				%>
 				<nav class="float-end navbar navbar-expand-sm">
 					<ul class="navbar-nav">
-						<li class="nav-item"><%=usuarioAtenticado%>&nbsp;<a href="./login?login=out">(Salir)</a></li>
+						<li class="nav-item"><%=nameUserAuth%>&nbsp;<a href="./login?login=out">(Salir)</a></li>
 					</ul>
 				</nav>
 				<%

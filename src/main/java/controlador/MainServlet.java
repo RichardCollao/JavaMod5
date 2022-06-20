@@ -17,48 +17,55 @@ public class MainServlet extends HttpServlet {
 	protected Usuario usuarioAut = null;
 	protected Form form;
 
-	public MainServlet() {
-		super();
+	public void init(HttpServletRequest request, HttpServletResponse response) {
+		this.request = request;
+		this.response = response;
+		this.form = new Form(this.request);
+		this.errors = new ArrayList<String>();
 	}
 
 	protected void index(String fileJsp) {
 		verifyAuth();
-		checkPermissions();
-		showView(fileJsp);
+		
+		if(checkRestrictions()) {
+			showView(fileJsp);
+		}else {
+			redirect(request.getContextPath() + "/login");
+		}
 	}
 
 	protected void verifyAuth() {
 		usuarioAut = new Authentication(request.getSession()).getUserAuth();
 		if (usuarioAut != null) {
-			this.request.setAttribute("usuarioAtenticado", usuarioAut.getNombreUsuario());
+			this.request.setAttribute("nameUserAuth", usuarioAut.getNombreUsuario());
 		}
-
 	}
 
-	protected void checkPermissions() {
+	protected boolean checkRestrictions() {
+		boolean result = true;
 		String currentNameClass = this.getClass().getSimpleName();
 		usuarioAut = new Authentication(request.getSession()).getUserAuth();
 		// Requerimiento ABPRO 2.4
+		String[] authServletList = new String[]{"Contacto", "CrearCapacitacion", "ListarCapacitaciones"};
 		if (usuarioAut == null) {
-			if (currentNameClass.equals("Contacto") || currentNameClass.equals("CrearCapacitacion") || currentNameClass.equals("ListarCapacitaciones")) {
-				redirect(request.getContextPath() + "/login");
+			for(String servlet: authServletList) {
+				if (currentNameClass.equals(servlet)) {
+					result = false;
+					break;
+				}
 			}
 		}
+		return result; 
 	}
 
 	protected void showView(String fileJsp) {
 		this.request.setAttribute("fileJsp", fileJsp);
 		this.request.setAttribute("errors", this.errors);
 
-		if (this.form != null) {
-
-			this.request.setAttribute("form", this.form);
-		}
-
-		this.response.setContentType("text/html;charset=UTF-8");
-
 		try {
-			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
+			this.response.setContentType("text/html;charset=UTF-8");
+//			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
+			this.request.getRequestDispatcher("/layout.jsp").forward(this.request, this.response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,8 +73,9 @@ public class MainServlet extends HttpServlet {
 
 	// redirecciona de acuerdo a la URI recibida
 	protected void redirect(String uri) {
+		errors = new ArrayList<String>();
 		try {
-			System.out.println("Redireccion: " + uri);
+			System.out.println("Redirect from: " + request.getRequestURI()+ " To: " + uri);
 			response.sendRedirect(uri);
 		} catch (IOException e) {
 			e.printStackTrace();

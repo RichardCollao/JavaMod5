@@ -22,7 +22,3 @@ if (!errors.isEmpty()) {
 	</div>
 </section>
 <%}%>
-
-
-
-

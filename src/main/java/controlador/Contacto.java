@@ -9,21 +9,20 @@ public class Contacto extends MainServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
-
+		init(request, response);
+		
 		index("contacto.jsp");
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
+		init(request, response);
 
-		boolean validated = true;
-		if (!validated) {
-			this.request.setAttribute("errors", "El nombre de usuario o contraseña son incorrectos");
-		}
+		String correo = form.getStringOrBlank("nombre");
+		String clave = form.getStringOrBlank("correo");
+		String mensaje = form.getStringOrBlank("mensaje");
+		
+		// TODO: validacion
 		index("contacto.jsp");
 	}
 }

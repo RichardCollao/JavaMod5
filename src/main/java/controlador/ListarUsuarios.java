@@ -13,8 +13,7 @@ public class ListarUsuarios extends MainServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
+		init(request, response);
 
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
 		ArrayList<Usuario> usuariosList = new ArrayList<Usuario>();

@@ -14,8 +14,7 @@ public class ListarCapacitaciones extends MainServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.request = request;
-		this.response = response;
+		init(request, response);
 		
 		MySQLCapacitacionDAO db = new MySQLCapacitacionDAO();
 		ArrayList<Capacitacion> capacitacionesList = new ArrayList<Capacitacion>();

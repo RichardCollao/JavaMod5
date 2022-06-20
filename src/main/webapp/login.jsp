@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="controlador.Form"%>
 <main>
 	<div class="container">
 		<div style="margin: 15px auto; width: 500px; padding: 30px">
@@ -6,7 +7,7 @@
 			<form id="formulario" action="./login" method="post">
 				<!-- Email input -->
 				<div class="mt-3">
-					<label class="form-label">Correo:</label> <input type="email" class="form-control" placeholder="" name="correo" value="<%=request.getParameter("correo")%>" />
+					<label class="form-label">Correo:</label> <input type="email" class="form-control" placeholder="" name="correo" value="<%=Form.getParameter("correo")%>" />
 				</div>
 
 				<!-- Password input -->
