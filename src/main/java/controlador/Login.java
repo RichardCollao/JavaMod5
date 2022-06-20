@@ -35,8 +35,8 @@ public class Login extends MainServlet {
 		this.request = request;
 		this.response = response;
 
-		String correo = (String) request.getParameter("correo");
-		String clave = (String) request.getParameter("clave");
+		String correo = Utilities.stringNotNull(request.getParameter("correo"));
+		String clave = Utilities.stringNotNull(request.getParameter("clave"));
 
 		this.errors = validateForm(correo, clave);
 		if (this.errors.isEmpty()) {
@@ -79,17 +79,15 @@ public class Login extends MainServlet {
 	private ArrayList<String> validateForm(String correo, String clave) {
 		errors = new ArrayList<String>();
 		// validar correo
-		if (correo == null || correo.length() == 0) {
+		if (correo.length() == 0) {
 			errors.add("El campo 'correo' esta vacio.");
 		} else {
-			Matcher matcher;
-			matcher = Pattern.compile("^[a-zA-Z0-9_\\Q.\\E]+@[a-zA-Z0-9_\\Q.\\E]+$").matcher(correo);
-			if (!matcher.find()) {
+			if (!Utilities.compareExpression("^[a-zA-Z0-9_\\Q.\\E]+@[a-zA-Z0-9_\\Q.\\E]+$", correo)) {
 				errors.add("El valor del campo 'correo' no es valido.");
 			}
 		}
 		// validar contraseña
-		if (clave == null || clave.length() < 6) {
+		if (clave.length() < 6) {
 			errors.add("El campo 'Contraseña' debe contener minimo 6 caracteres.");
 		}
 

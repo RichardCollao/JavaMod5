@@ -14,8 +14,8 @@
 		<servlet-class>controlador.Contacto</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Capacitacion</servlet-name>
-		<servlet-class>controlador.Capacitacion</servlet-class>
+		<servlet-name>CrearCapacitacion</servlet-name>
+		<servlet-class>controlador.CrearCapacitacion</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ListarCapacitaciones</servlet-name>
@@ -42,8 +42,8 @@
 		<url-pattern>/contacto</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Capacitacion</servlet-name>
-		<url-pattern>/capacitacion</url-pattern>
+		<servlet-name>CrearCapacitacion</servlet-name>
+		<url-pattern>/crearcapacitacion</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListarCapacitaciones</servlet-name>

@@ -11,17 +11,17 @@ import javax.servlet.http.HttpSession;
 import modelo.entities.Usuario;
 
 public class MainServlet extends HttpServlet {
-	public HttpServletRequest request;
-	public HttpServletResponse response;
+	protected HttpServletRequest request;
+	protected HttpServletResponse response;
 	protected ArrayList<String> errors = new ArrayList<String>();
-	Usuario usuarioAut = null;
+	protected Usuario usuarioAut = null;
+	protected Form form;
 
 	public MainServlet() {
-
+		super();
 	}
 
 	protected void index(String fileJsp) {
-		// System.out.println("_____________" + this.getClass().getSimpleName());
 		verifyAuth();
 		checkPermissions();
 		showView(fileJsp);
@@ -40,7 +40,7 @@ public class MainServlet extends HttpServlet {
 		usuarioAut = new Authentication(request.getSession()).getUserAuth();
 		// Requerimiento ABPRO 2.4
 		if (usuarioAut == null) {
-			if (currentNameClass.equals("Contacto") || currentNameClass.equals("Capacitaciones") || currentNameClass.equals("ListarCapacitaciones")) {
+			if (currentNameClass.equals("Contacto") || currentNameClass.equals("CrearCapacitacion") || currentNameClass.equals("ListarCapacitaciones")) {
 				redirect(request.getContextPath() + "/login");
 			}
 		}
@@ -49,7 +49,14 @@ public class MainServlet extends HttpServlet {
 	protected void showView(String fileJsp) {
 		this.request.setAttribute("fileJsp", fileJsp);
 		this.request.setAttribute("errors", this.errors);
+
+		if (this.form != null) {
+
+			this.request.setAttribute("form", this.form);
+		}
+
 		this.response.setContentType("text/html;charset=UTF-8");
+
 		try {
 			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
 		} catch (Exception e) {

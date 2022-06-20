@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <main>
 	<div class="container">
 		<div style="margin: 15px auto; width: 500px; padding: 30px">
@@ -5,12 +6,12 @@
 			<form id="formulario" action="./login" method="post">
 				<!-- Email input -->
 				<div class="mt-3">
-					<label class="form-label">Correo:</label> <input type="email" class="form-control" placeholder="" name="correo" value="" />
+					<label class="form-label">Correo:</label> <input type="email" class="form-control" placeholder="" name="correo" value="<%=request.getParameter("correo")%>" />
 				</div>
 
 				<!-- Password input -->
 				<div class="mt-3">
-					<label class="form-label">Contraseña:</label> <input type="password" class="form-control" placeholder="" name="clave" value="" />
+					<label class="form-label">ContraseÃ±a:</label> <input type="password" class="form-control" placeholder="" name="clave" value="" />
 				</div>
 				<!-- Checkbox -->
 				<div class="mt-3">
