@@ -1,20 +1,18 @@
 package controlador;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import modelo.dao.mysql.MySQLUsuarioDAO;
 import modelo.entities.Usuario;
 
-public class ListarUsuarios extends MainServlet {
+public class ListarUsuarios extends MainServlet implements Callback {
 
+	public ListarUsuarios() {
+		super.setCallback(this);
+	}
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-
+	public void continueGet() {
 		MySQLUsuarioDAO db = new MySQLUsuarioDAO();
 		ArrayList<Usuario> usuariosList = new ArrayList<Usuario>();
 		try {
@@ -23,11 +21,12 @@ public class ListarUsuarios extends MainServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("usuariosList", usuariosList);
-		index("listarusuarios.jsp");
+		showView("listarusuarios.jsp");
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+	public void continuePost() {
+		// TODO Auto-generated method stub
+		
 	}
 }

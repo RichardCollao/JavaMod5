@@ -1,37 +1,28 @@
 package controlador;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import modelo.dao.mysql.MySQLUsuarioDAO;
 import modelo.entities.Usuario;
 
-public class Login extends MainServlet {
+public class Login extends MainServlet implements Callback {
 
+	public Login() {
+		super.setCallback(this);
+	}
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-
-		
+	public void continueGet() {
 		if (request.getParameter("login") != null && request.getParameter("login").equals("out")) {
 			logOut();
 		} else {
-			index("login.jsp");
+			showView("login.jsp");
 		}
 	}
-
+	
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-		
+	public void continuePost() {
 		String correo = form.getStringOrBlank("correo");
 		String clave = form.getStringOrBlank("clave");
 
@@ -45,7 +36,7 @@ public class Login extends MainServlet {
 				this.errors.add("El nombre de usuario o contraseña son incorrectos");
 			}
 		}
-		index("login.jsp");
+		showView("login.jsp");
 	}
 
 	private Usuario verifyCredentials(String correo, String clave) {

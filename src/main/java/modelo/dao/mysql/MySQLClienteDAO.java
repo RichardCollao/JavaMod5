@@ -36,6 +36,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			st.setInt(10, cliente.getSistemaSalud());
 			st.setString(11, cliente.getDireccion());
 			st.setString(12, cliente.getComuna());
+			st.execute();
 
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
@@ -74,6 +75,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			st.setInt(11, cliente.getSistemaSalud());
 			st.setString(12, cliente.getDireccion());
 			st.setString(13, cliente.getComuna());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -90,6 +92,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, cliente.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {

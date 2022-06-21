@@ -24,6 +24,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 			st.setString(4, capacitacion.getLugar());
 			st.setString(5, capacitacion.getDuracion());
 			st.setInt(6, capacitacion.getCantidadAsistentes());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -48,6 +49,8 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 			st.setString(5, capacitacion.getDuracion());
 			st.setInt(6, capacitacion.getCantidadAsistentes());
 			st.setInt(7, capacitacion.getIdCapacitacion());
+			st.execute();
+			
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -63,6 +66,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 			sql.append("DELETE capacitacion WHERE id_capacitacion=?;");
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, capacitacion.getIdCapacitacion());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {

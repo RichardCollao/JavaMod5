@@ -32,7 +32,7 @@ ArrayList<Capacitacion> capacitacionesList = (ArrayList<Capacitacion>) request.g
 					<td><%=capacitacion.getLugar()%></td>
 					<td><%=capacitacion.getDuracion()%></td>
 					<td><%=capacitacion.getCantidadAsistentes()%></td>
-					<td><span class="float-end">[Borrar]</span>&nbsp;<span>[Mostrar]</span></td>
+					<td><span>[Editar]</span><span class="float-end">[Borrar]</span></td>
 				</tr>
 				<%
 				}

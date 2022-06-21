@@ -29,7 +29,8 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			st.setString(5, profesional.getRun());
 			st.setString(6, profesional.getTitulo());
 			st.setString(7, profesional.getFechaIngreso());
-
+			st.execute();
+			
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
 				last_inserted_id = rs.getInt(1);
@@ -61,6 +62,7 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			st.setString(7, profesional.getTitulo());
 			st.setString(8, profesional.getFechaIngreso());
 			st.setInt(9, profesional.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -77,6 +79,7 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, profesional.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {

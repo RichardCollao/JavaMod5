@@ -23,6 +23,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			st.setString(3, usuario.getClave());
 			st.setString(4, usuario.getFechaNacimiento());
 			st.setString(5, usuario.getRun());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -44,6 +45,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			st.setString(4, usuario.getFechaNacimiento());
 			st.setString(5, usuario.getRun());
 			st.setInt(6, usuario.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -60,6 +62,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, usuario.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {

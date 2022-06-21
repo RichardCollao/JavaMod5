@@ -1,28 +1,23 @@
 package controlador;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+public class Contacto extends MainServlet implements Callback {
 
-public class Contacto extends MainServlet {
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-		
-		index("contacto.jsp");
+	public Contacto() {
+		super.setCallback(this);
 	}
-
+	
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-
+	public void continueGet() {
+		showView("contacto.jsp");
+	}
+	
+	@Override
+	public void continuePost() {
 		String correo = form.getStringOrBlank("nombre");
 		String clave = form.getStringOrBlank("correo");
 		String mensaje = form.getStringOrBlank("mensaje");
-		
+
 		// TODO: validacion
-		index("contacto.jsp");
+		showView("contacto.jsp");
 	}
 }

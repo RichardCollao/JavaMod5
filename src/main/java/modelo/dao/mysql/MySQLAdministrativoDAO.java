@@ -29,6 +29,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			st.setString(5, administrativo.getRun());
 			st.setString(6, administrativo.getArea());
 			st.setString(7, administrativo.getExperienciaPrevia());
+			st.execute();
 
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
@@ -62,6 +63,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			st.setString(7, administrativo.getArea());
 			st.setString(8, administrativo.getExperienciaPrevia());
 			st.setInt(9, administrativo.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -78,6 +80,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setInt(1, administrativo.getIdUsuario());
+			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {

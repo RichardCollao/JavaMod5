@@ -3,6 +3,7 @@ package controlador;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,21 +17,37 @@ public class MainServlet extends HttpServlet {
 	protected ArrayList<String> errors = new ArrayList<String>();
 	protected Usuario usuarioAut = null;
 	protected Form form;
+	protected Callback callback;
+
+	protected void setCallback(Callback callback) {
+		this.callback = callback;
+	}
 
 	public void init(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;
 		this.response = response;
 		this.form = new Form(this.request);
 		this.errors = new ArrayList<String>();
-	}
 
-	protected void index(String fileJsp) {
 		verifyAuth();
-		
-		if(checkRestrictions()) {
-			showView(fileJsp);
-		}else {
-			redirect(request.getContextPath() + "/login");
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doGet()");
+		init(request, response);
+
+		if (overcomeRestriction()) {
+			callback.continueGet();
+		}
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost()");
+		init(request, response);
+		if (overcomeRestriction()) {
+			callback.continuePost();
 		}
 	}
 
@@ -41,21 +58,20 @@ public class MainServlet extends HttpServlet {
 		}
 	}
 
-	protected boolean checkRestrictions() {
-		boolean result = true;
+	protected boolean overcomeRestriction() {
 		String currentNameClass = this.getClass().getSimpleName();
 		usuarioAut = new Authentication(request.getSession()).getUserAuth();
 		// Requerimiento ABPRO 2.4
 		String[] authServletList = new String[]{"Contacto", "CrearCapacitacion", "ListarCapacitaciones"};
 		if (usuarioAut == null) {
-			for(String servlet: authServletList) {
+			for (String servlet : authServletList) {
 				if (currentNameClass.equals(servlet)) {
-					result = false;
-					break;
+					redirect(request.getContextPath() + "/login");
+					return false;
 				}
 			}
 		}
-		return result; 
+		return true;
 	}
 
 	protected void showView(String fileJsp) {
@@ -64,7 +80,7 @@ public class MainServlet extends HttpServlet {
 
 		try {
 			this.response.setContentType("text/html;charset=UTF-8");
-//			this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
+			// this.request.getRequestDispatcher("/layout.jsp").include(this.request, this.response);
 			this.request.getRequestDispatcher("/layout.jsp").forward(this.request, this.response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +91,7 @@ public class MainServlet extends HttpServlet {
 	protected void redirect(String uri) {
 		errors = new ArrayList<String>();
 		try {
-			System.out.println("Redirect from: " + request.getRequestURI()+ " To: " + uri);
+			System.out.println("Redirect from: " + request.getRequestURI() + " To: " + uri);
 			response.sendRedirect(uri);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -6,7 +6,7 @@
 		<h2>Capacitacion</h2>
 		<form id="formulario" action="./crearcapacitacion" method="post" style="max-width: 600px">
 			<div class="mt-3">
-				<label class="form-label">Rut empresa:</label> <input type="text" class="form-control" name="rut_empresa" value="<%=Form.getParameter("rut_empresa")%>" />
+				<label class="form-label">Rut empresa:</label> <input type="text" class="form-control" name="rut_empresa" value="<%=Form.getParameter("rut_empresa")%>" placeholder="9000000-k"/>
 			</div>
 			<div class="mt-3">
 				<select class="form-select" name="dia" data-selected="<%=Form.getParameter("dia")%>">
@@ -18,7 +18,7 @@
 				</select>
 			</div>
 			<div class="mt-3">
-				<label class="form-label">Hora:</label> <input type="text" class="form-control" name="hora" value="<%=Form.getParameter("hora")%>" />
+				<label class="form-label">Hora:</label> <input type="text" class="form-control" name="hora" value="<%=Form.getParameter("hora")%>" placeholder="23:59:59"/>
 			</div>
 			<div class="mt-3">
 				<label class="form-label">Lugar:</label> <input type="text" class="form-control" name="lugar" value="<%=Form.getParameter("lugar")%>" />

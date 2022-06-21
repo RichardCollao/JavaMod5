@@ -1,21 +1,18 @@
 package controlador;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import modelo.dao.mysql.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
 
+public class ListarCapacitaciones extends MainServlet implements Callback {
 
-public class ListarCapacitaciones extends MainServlet{
-
+	public ListarCapacitaciones() {
+		super.setCallback(this);
+	}
+	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		init(request, response);
-		
+	public void continueGet() {
 		MySQLCapacitacionDAO db = new MySQLCapacitacionDAO();
 		ArrayList<Capacitacion> capacitacionesList = new ArrayList<Capacitacion>();
 		try {
@@ -25,12 +22,13 @@ public class ListarCapacitaciones extends MainServlet{
 			e.printStackTrace();
 		}
 		request.setAttribute("capacitacionesList", capacitacionesList);
-		index("listarcapacitaciones.jsp");
+		showView("listarcapacitaciones.jsp");
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+	public void continuePost() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
