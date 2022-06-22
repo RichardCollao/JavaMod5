@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="controlador.Form"%>
+<%@ page import="clases.Form"%>
 
 
 

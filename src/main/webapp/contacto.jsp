@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="controlador.Form"%>
+<%@ page import="clases.Form"%>
 <main>
 	<div class="container">
 		<div style="margin:15px auto;width:600px;padding:30px">

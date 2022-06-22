@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import clases.Utilities;
 import modelo.dao.mysql.MySQLUsuarioDAO;
 import modelo.entities.Usuario;
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import clases.Utilities;
 import modelo.dao.mysql.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
 

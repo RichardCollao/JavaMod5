@@ -1,4 +1,4 @@
-package controlador;
+package clases;
 
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
