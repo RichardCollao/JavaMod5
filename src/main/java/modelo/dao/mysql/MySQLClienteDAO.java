@@ -16,8 +16,8 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
-			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run) ");
-			sql.append("VALUES (?,?,?,?,?);");
+			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
+			sql.append("VALUES (?,?,?,?,?,?);");
 			sql.append("SET @last_id = LAST_INSERT_ID();");
 			sql.append("INSERT INTO cliente(fk_id_usuario, nombres, apellidos, telefono, afp, sistema_salud, direccion, comuna) ");
 			sql.append("VALUES (@last_id,?,?,?,?,?,?,?);");
@@ -29,13 +29,14 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			st.setString(3, cliente.getNombreUsuario());
 			st.setString(4, cliente.getFechaNacimiento());
 			st.setString(5, cliente.getRun());
-			st.setString(6, cliente.getNombres());
-			st.setString(7, cliente.getApellidos());
-			st.setString(8, cliente.getTelefono());
-			st.setString(9, cliente.getAfp());
-			st.setInt(10, cliente.getSistemaSalud());
-			st.setString(11, cliente.getDireccion());
-			st.setString(12, cliente.getComuna());
+			st.setString(6, cliente.getTipo());
+			st.setString(7, cliente.getNombres());
+			st.setString(8, cliente.getApellidos());
+			st.setString(9, cliente.getTelefono());
+			st.setString(10, cliente.getAfp());
+			st.setInt(11, cliente.getSistemaSalud());
+			st.setString(12, cliente.getDireccion());
+			st.setString(13, cliente.getComuna());
 			st.execute();
 
 			ResultSet rs = st.getGeneratedKeys();
@@ -55,7 +56,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
-			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=? ");
+			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
 			sql.append("WHERE id_usuario=?;");
 			sql.append("UPDATE cliente SET nombres=?, apellidos=?, telefono=?, afp=?, sistema_salud=?, direccion=?, comuna=? ");
 			sql.append("WHERE fk_id_usuario=?;");
@@ -67,14 +68,15 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			st.setString(4, cliente.getNombreUsuario());
 			st.setString(4, cliente.getFechaNacimiento());
 			st.setString(5, cliente.getRun());
-			st.setInt(6, cliente.getIdUsuario());
-			st.setString(7, cliente.getNombres());
-			st.setString(8, cliente.getApellidos());
-			st.setString(9, cliente.getTelefono());
-			st.setString(10, cliente.getAfp());
-			st.setInt(11, cliente.getSistemaSalud());
-			st.setString(12, cliente.getDireccion());
-			st.setString(13, cliente.getComuna());
+			st.setString(6, cliente.getTipo());
+			st.setInt(7, cliente.getIdUsuario());
+			st.setString(8, cliente.getNombres());
+			st.setString(9, cliente.getApellidos());
+			st.setString(10, cliente.getTelefono());
+			st.setString(11, cliente.getAfp());
+			st.setInt(12, cliente.getSistemaSalud());
+			st.setString(13, cliente.getDireccion());
+			st.setString(14, cliente.getComuna());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -120,6 +122,8 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 				cliente.setClave(rs.getString("clave"));
 				cliente.setNombreUsuario(rs.getString("nombre"));
 				cliente.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+				cliente.setRun(rs.getString("run"));
+				cliente.setTipo(rs.getString("tipo"));
 				cliente.setNombres(rs.getString("nombres"));
 				cliente.setApellidos(rs.getString("apellidos"));
 				cliente.setTelefono(rs.getString("telefono"));
@@ -156,6 +160,8 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 				cliente.setClave(rs.getString("clave"));
 				cliente.setNombreUsuario(rs.getString("nombre"));
 				cliente.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+				cliente.setRun(rs.getString("run"));
+				cliente.setTipo(rs.getString("tipo"));
 				cliente.setNombres(rs.getString("nombres"));
 				cliente.setApellidos(rs.getString("apellidos"));
 				cliente.setTelefono(rs.getString("telefono"));

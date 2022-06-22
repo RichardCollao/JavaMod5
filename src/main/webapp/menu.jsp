@@ -14,8 +14,14 @@ String nameUserAuth = (String) request.getAttribute("nameUserAuth");
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item" href="./crearcapacitacion">Crear capacitacion</a></li>
 								<li><a class="dropdown-item" href="./listarcapacitaciones">Listar capacitaciones</a></li>
-							</ul></li>
-						<li class="nav-item"><a class="nav-link" href="./listarusuarios">Usuarios</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Usuarios </a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li><a class="dropdown-item" href="./crearusuario">Crear usuario</a></li>
+								<li><a class="dropdown-item" href="./listarusuarios">Listar usuarios</a></li>
+							</ul>
+						</li>
 						<li class="nav-item"><a class="nav-link" href="./contacto">Contacto</a></li>
 						<li class="nav-item"><a class="nav-link" href="./login">Login</a></li>
 					</ul>

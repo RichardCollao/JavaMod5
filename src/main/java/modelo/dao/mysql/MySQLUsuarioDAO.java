@@ -15,14 +15,16 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			this.connect();
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO usuario(nombre_usuario, correo, clave, fecha_nacimiento, run) VALUES (?,?,?,?,?);");
+			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
+			sql.append("VALUES (?,?,?,?,?,?);");
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
-			st.setString(1, usuario.getNombreUsuario());
-			st.setString(2, usuario.getCorreo());
-			st.setString(3, usuario.getClave());
+			st.setString(1, usuario.getCorreo());
+			st.setString(2, usuario.getClave());
+			st.setString(3, usuario.getNombreUsuario());
 			st.setString(4, usuario.getFechaNacimiento());
 			st.setString(5, usuario.getRun());
+			st.setString(6, usuario.getTipo());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -36,7 +38,8 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		try {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=? WHERE id_usuario=?;");
+			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
+			sql.append("WHERE id_usuario=?;");
 
 			PreparedStatement st = this.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getNombreUsuario());
@@ -44,7 +47,8 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 			st.setString(3, usuario.getClave());
 			st.setString(4, usuario.getFechaNacimiento());
 			st.setString(5, usuario.getRun());
-			st.setInt(6, usuario.getIdUsuario());
+			st.setString(6, usuario.getTipo());
+			st.setInt(7, usuario.getIdUsuario());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -89,6 +93,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
+				usuario.setTipo(rs.getString("tipo"));
 			}
 			rs.close();
 			st.close();
@@ -104,7 +109,6 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	public ArrayList<Usuario> readAll() throws Exception {
 		ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 		try {
-
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario;");
@@ -119,6 +123,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
+				usuario.setTipo(rs.getString("tipo"));
 				listUsuarios.add(usuario);
 			}
 			rs.close();
@@ -151,7 +156,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 				usuario.setNombreUsuario(rs.getString("nombre_usuario"));
 				usuario.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				usuario.setRun(rs.getString("run"));
-				usuario.setType(rs.getString("type"));
+				usuario.setTipo(rs.getString("tipo"));
 			}
 			rs.close();
 			st.close();

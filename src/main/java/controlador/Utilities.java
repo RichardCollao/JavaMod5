@@ -14,18 +14,18 @@ public abstract class Utilities {
 		return underscore;
 	}
 
-	public static Integer parseIntNotNull(String str) {
+	public static Integer getIntegerOrZero(String str) {
 		Integer r = null;
 		try {
-			Integer.parseInt(str);
+			r = Integer.parseInt(str);
 		} catch (Exception e) {
-			r = 0;
+			r = null;
 		}
 		r = r != null ? r : 0;
 		return r;
 	}
 
-	public static String stringNotNull(String str) {
+	public static String getStringOrBlank(String str) {
 		String result = str != null ? str : "";
 		return result;
 	}

@@ -1,53 +1,47 @@
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="controlador.Form"%>
+
+
+
+
+
+
+
 <main>
 	<div class="container">
-		<div style="margin: 15px auto; width: 500px; padding: 30px">
-			<h2 style="text-align: center;">Crear usuario</h2>
-			<form class="mx-1 mx-md-4">
-				<div class="d-flex flex-row align-items-center mb-4">
-					<i class="fas fa-user fa-lg me-3 fa-fw"></i>
-					<div class="form-outline flex-fill mb-0">
-						<input type="text" id="form3Example1c" class="form-control" /> <label class="form-label" for="form3Example1c">Nombre</label>
-					</div>
-				</div>
+		<h2>Nuevo usuario</h2>
+		<form id="formulario" action="./crearusuario" method="post" style="max-width: 600px">
+			<div class="mt-3">
+				<label class="form-label">Correo:</label> <input type="email" class="form-control" name="correo" value="<%=Form.getParameter("correo")%>" />
+			</div>
 
-				<div class="d-flex flex-row align-items-center mb-4">
-					<i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-					<div class="form-outline flex-fill mb-0">
-						<input type="email" id="form3Example3c" class="form-control" /> <label class="form-label" for="form3Example3c">Correo</label>
-					</div>
-				</div>
+			<div class="mt-3">
+				<label class="form-label">Contraseña:</label> <input type="password" class="form-control" name="clave" value="" />
+			</div>
+			<div class="mt-3">
+				<label class="form-label">Confirmar contraseña:</label> <input type="password" class="form-control" name="clave2" value="" />
+			</div>
+			<div class="mt-3">
+				<label class="form-label">Nombre de usuario:</label> <input type="text" class="form-control" name="nombre_usuario" value="<%=Form.getParameter("nombre_usuario")%>" />
+			</div>
+			<div class="mt-3">
+				<label class="form-label">Fecha de nacimiento:</label> <input type="text" class="form-control" name="fecha_nacimiento" value="<%=Form.getParameter("fecha_nacimiento")%>" placeholder="2020-12-31" />
+			</div>
+			<div class="mt-3">
+				<label class="form-label">R.U.N.:</label> <input type="text" class="form-control" name="run" value="<%=Form.getParameter("run")%>" placeholder="9000000-k" />
+			</div>
+			<div class="mt-3">
+				<select class="form-select" name="tipo" data-selected="<%=Form.getParameter("tipo")%>">
+					<option value="0">Administrativo</option>
+					<option value="1">Cliente</option>
+					<option value="2">Profesional</option>
+				</select>
+			</div>
+			<!-- Submit button -->
+			<div class="mt-3">
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</div>
 
-				<div class="d-flex flex-row align-items-center mb-4">
-					<i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-					<div class="form-outline flex-fill mb-0">
-						<input type="password" id="form3Example4c" class="form-control" /> <label class="form-label" for="form3Example4c">Clave</label>
-					</div>
-				</div>
-
-				<div class="d-flex flex-row align-items-center mb-4">
-					<i class="fas fa-key fa-lg me-3 fa-fw"></i>
-					<div class="form-outline flex-fill mb-0">
-						<input type="password" id="form3Example4cd" class="form-control" /> <label class="form-label" for="form3Example4cd">Repite tu clave</label>
-					</div>
-				</div>
-
-				<div class="form-check d-flex justify-content-center mb-5">
-					<input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" /> <label class="form-check-label" for="form2Example3"> Estoy de acuerdo con los <a href="#!">Terminos
-							de servicio</a>
-					</label>
-				</div>
-
-				<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-					<button type="button" class="btn btn-primary btn-lg">Registrate</button>
-				</div>
-
-			</form>
-		</div>
+		</form>
 	</div>
 </main>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		document.getElementById("formulario").addEventListener("submit",
-				validarFormulario);
-	});
-</script>

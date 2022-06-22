@@ -3,6 +3,7 @@ package controlador;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import modelo.dao.mysql.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
 
@@ -69,11 +70,10 @@ public class CrearCapacitacion extends MainServlet implements Callback {
 	private ArrayList<String> validateForm(Capacitacion capacitacion) {
 		errors = new ArrayList<String>();
 		// validar rut
-		if (!Utilities.compareExpression("^[1-9]{1}[0-9]+-[1-9kK]{1}$", capacitacion.getRutEmpresa())) {
+		if (!Utilities.compareExpression("^[1-9]{1}[0-9]+\\-[1-9kK]{1}$", capacitacion.getRutEmpresa())) {
 			errors.add("El valor del campo 'rut empresa' no es valido.");
 		}
 		// validar dia
-		System.out.println("__________________" + capacitacion.getDia());
 		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"}));
 		if (!list.contains(capacitacion.getDia())) {
 			errors.add("El campo 'dia' no es valido.");

@@ -22,6 +22,10 @@
 		<servlet-class>controlador.ListarCapacitaciones</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>CrearUsuario</servlet-name>
+		<servlet-class>controlador.CrearUsuario</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>ListarUsuarios</servlet-name>
 		<servlet-class>controlador.ListarUsuarios</servlet-class>
 	</servlet>
@@ -44,6 +48,10 @@
 	<servlet-mapping>
 		<servlet-name>ListarCapacitaciones</servlet-name>
 		<url-pattern>/listarcapacitaciones</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CrearUsuario</servlet-name>
+		<url-pattern>/crearusuario</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListarUsuarios</servlet-name>

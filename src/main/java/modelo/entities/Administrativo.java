@@ -9,16 +9,6 @@ public class Administrativo extends Usuario {
 		super();
 	}
 
-	public Administrativo(String area, String experienciaPrevia) {
-		super();
-		this.area = area;
-		this.experienciaPrevia = experienciaPrevia;
-	}
-
-	public Administrativo(Integer idUsuario, String correo, String clave, String nombreUsuario, String fechaNacimiento, String run, String type) {
-		super(idUsuario, correo, clave, nombreUsuario, fechaNacimiento, run, type);
-	}
-
 	public String getExperienciaPrevia() {
 		return experienciaPrevia;
 	}

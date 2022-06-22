@@ -18,17 +18,6 @@ public class Cliente extends Usuario {
 	public Cliente() {
 	}
 
-	public Cliente(String nombres, String apellidos, String telefono, String afp, int sistemaSalud, String direccion, String comuna, Integer idUsuario, String correo, String clave, String nombreUsuario, String fechaNacimiento, String run, String type) {
-		super(idUsuario, correo, clave, nombreUsuario, fechaNacimiento, run, type);
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.telefono = telefono;
-		this.afp = afp;
-		this.sistemaSalud = sistemaSalud;
-		this.direccion = direccion;
-		this.comuna = comuna;
-	}
-
 	public int getEdad() {
 		int edad = 0;
 		// ToDoubleFunction: calcular segun fecha de nacimiento

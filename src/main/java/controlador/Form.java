@@ -13,14 +13,14 @@ public class Form {
 	};
 
 	public String getStringOrBlank(String name) {
-		String result = Utilities.stringNotNull(this.request.getParameter(name));
+		String result = Utilities.getStringOrBlank(this.request.getParameter(name));
 		Form.parameters.add(new String[]{name, result});
 		return result;
 	}
 
 	public Integer getIntegerOrZero(String name) {
-		Integer result = Utilities.parseIntNotNull(this.request.getParameter(name));
-		Form.parameters.add(new String[]{name, Utilities.stringNotNull(this.request.getParameter(name))});
+		Integer result = Utilities.getIntegerOrZero(this.request.getParameter(name));
+		Form.parameters.add(new String[]{name, Utilities.getStringOrBlank(this.request.getParameter(name))});
 		return result;
 	}
 

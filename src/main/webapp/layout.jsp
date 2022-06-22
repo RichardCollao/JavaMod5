@@ -4,7 +4,6 @@
 String fileJsp = (String) request.getAttribute("fileJsp");
 %>
 <!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,12 +17,31 @@ String fileJsp = (String) request.getAttribute("fileJsp");
 <!-- <script src="js/funciones.js"></script> -->
 <title>..:: Modulo 5 Grupal ::..</title>
 </head>
-<body>
-	<%@ include file="./menu.jsp"%>
-	<%@ include file="./messages.jsp"%>
-	<div>
-		<jsp:include page="<%=fileJsp%>" flush="true" />
-	</div>
-	<%@ include file="./footer.jsp"%>
-</body>
-</html>
+<%@ include file="./menu.jsp"%>
+<%@ include file="./toast.jsp"%>
+<%@ include file="./messages.jsp"%>
+<div>
+	<jsp:include page="<%=fileJsp%>" flush="true" />
+</div>
+<%@ include file="./footer.jsp"%>
+
+<script>
+	window.onload = function() {
+		// mantiene la seleccion del elemento <select>
+		selects = document.querySelectorAll("select");
+		selects.forEach(element => {
+			if (element.getAttribute('data-selected') != "") {
+				element.value = element.getAttribute('data-selected');
+			}
+		});
+		// muestra el toast cuando no es null
+		var myToastEl = document.querySelector('.toast');
+		var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl);
+		<%if (toast != null) {%>
+		myToast.show();
+		<%}%>
+	}
+</script>
+
+
+

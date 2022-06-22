@@ -9,17 +9,6 @@ public class Profesional extends Usuario {
 		super();
 	}
 
-	public Profesional(String titulo, String fechaIngreso) {
-		this.titulo = titulo;
-		this.fechaIngreso = fechaIngreso;
-	}
-
-	public Profesional(String titulo, String fechaIngreso, Integer idUsuario, String correo, String clave, String nombreUsuario, String fechaNacimiento, String run, String type) {
-		super(idUsuario, correo, clave, nombreUsuario, fechaNacimiento, run, type);
-		this.titulo = titulo;
-		this.fechaIngreso = fechaIngreso;
-	}
-
 	public String getFechaIngreso() {
 		return fechaIngreso;
 	}

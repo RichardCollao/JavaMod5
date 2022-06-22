@@ -16,7 +16,7 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
-			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run) VALUES (?,?,?,?,?);");
+			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) VALUES (?,?,?,?,?);");
 			sql.append("SET @last_id = LAST_INSERT_ID();");
 			sql.append("INSERT INTO profesional(fk_id_usuario, titulo, fecha_ingreso) VALUES (@last_id,?,?);");
 			sql.append("COMMIT;");
@@ -27,8 +27,9 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			st.setString(3, profesional.getNombreUsuario());
 			st.setString(4, profesional.getFechaNacimiento());
 			st.setString(5, profesional.getRun());
-			st.setString(6, profesional.getTitulo());
-			st.setString(7, profesional.getFechaIngreso());
+			st.setString(6, profesional.getTipo());
+			st.setString(7, profesional.getTitulo());
+			st.setString(8, profesional.getFechaIngreso());
 			st.execute();
 			
 			ResultSet rs = st.getGeneratedKeys();
@@ -48,7 +49,8 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			this.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
-			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=? WHERE id_usuario=?;");
+			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
+			sql.append("WHERE id_usuario=?;");
 			sql.append("UPDATE profesional SET area=?, experiencia_previa=? WHERE fk_id_usuario=?;");
 			sql.append("COMMIT;");
 
@@ -58,10 +60,11 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			st.setString(4, profesional.getNombreUsuario());
 			st.setString(4, profesional.getFechaNacimiento());
 			st.setString(5, profesional.getRun());
-			st.setInt(6, profesional.getIdUsuario());
-			st.setString(7, profesional.getTitulo());
-			st.setString(8, profesional.getFechaIngreso());
-			st.setInt(9, profesional.getIdUsuario());
+			st.setString(6, profesional.getTipo());
+			st.setInt(7, profesional.getIdUsuario());
+			st.setString(8, profesional.getTitulo());
+			st.setString(9, profesional.getFechaIngreso());
+			st.setInt(10, profesional.getIdUsuario());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -102,11 +105,13 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				profesional = new Profesional();
-				profesional.setIdUsuario(rs.getInt("id_profesional"));
+				profesional.setIdUsuario(rs.getInt("id_usuario"));
 				profesional.setCorreo(rs.getString("correo"));
 				profesional.setClave(rs.getString("clave"));
 				profesional.setNombreUsuario(rs.getString("nombre"));
 				profesional.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+				profesional.setRun(rs.getString("run"));
+				profesional.setTipo(rs.getString("tipo"));
 				profesional.setTitulo(rs.getString("titulo"));
 				profesional.setFechaIngreso(rs.getString("fecha_ingreso"));
 			}
@@ -133,11 +138,13 @@ public class MySQLProfesionalDAO extends Conexion implements IProfesional {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				Profesional profesional = new Profesional();
-				profesional.setIdUsuario(rs.getInt("id_profesional"));
+				profesional.setIdUsuario(rs.getInt("id_usuario"));
 				profesional.setCorreo(rs.getString("correo"));
 				profesional.setClave(rs.getString("clave"));
 				profesional.setNombreUsuario(rs.getString("nombre"));
 				profesional.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+				profesional.setRun(rs.getString("run"));
+				profesional.setTipo(rs.getString("tipo"));
 				profesional.setTitulo(rs.getString("titulo"));
 				profesional.setFechaIngreso(rs.getString("fecha_ingreso"));
 				listProfesionals.add(profesional);

@@ -8,19 +8,10 @@ public class Usuario {
 	protected String nombreUsuario;// obligatorio, mínimo 10 caracteres, máximo 50
 	protected String fechaNacimiento; // obligatorio, independiente si lo declara como una fecha o un String, formato DD/MM/AAAA
 	protected String run; // corresponde a un número menor a 99.999.999
-	protected String type;
+	protected String tipo;
+	
 	public Usuario() {
 
-	}
-
-	public Usuario(Integer idUsuario, String correo, String clave, String nombreUsuario, String fechaNacimiento, String run, String type) {
-		super();
-		this.idUsuario = idUsuario;
-		this.correo = correo;
-		this.clave = clave;
-		this.nombreUsuario = nombreUsuario;
-		this.fechaNacimiento = fechaNacimiento;
-		this.run = run;
 	}
 
 	public Integer getIdUsuario() {
@@ -71,12 +62,12 @@ public class Usuario {
 		this.run = run;
 	}
 
-	public String getType() {
-		return type;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

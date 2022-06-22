@@ -3,6 +3,7 @@ package controlador;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+
 import modelo.dao.mysql.MySQLUsuarioDAO;
 import modelo.entities.Usuario;
 
@@ -31,6 +32,7 @@ public class Login extends MainServlet implements Callback {
 			Usuario usuario = verifyCredentials(correo, clave);
 			if (usuario != null) {
 				saveAuthInSession(usuario);
+				session.setAttribute("toast", "Bienvenido: " + usuario.getNombreUsuario());
 				redirect(request.getContextPath() + "/inicio");
 			} else {
 				this.errors.add("El nombre de usuario o contraseña son incorrectos");
@@ -52,7 +54,6 @@ public class Login extends MainServlet implements Callback {
 	}
 
 	private void saveAuthInSession(Usuario usuario) {
-		HttpSession session = request.getSession();
 		session.setAttribute("authenticated", true);
 		session.setAttribute("idUsuario", usuario.getIdUsuario());
 	}
