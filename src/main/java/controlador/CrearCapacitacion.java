@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import clases.Utilities;
-import modelo.dao.mysql.MySQLCapacitacionDAO;
+import modelo.dao.implementacion.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
 
 public class CrearCapacitacion extends MainServlet implements Callback {

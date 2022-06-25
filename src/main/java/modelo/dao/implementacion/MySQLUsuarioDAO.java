@@ -1,24 +1,31 @@
-package modelo.dao.mysql;
+package modelo.dao.implementacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import conexion.Conexion;
 import modelo.dao.interfaces.IUsuario;
 import modelo.entities.Usuario;
 
-public class MySQLUsuarioDAO extends Conexion implements IUsuario {
+public class MySQLUsuarioDAO implements IUsuario {
 
+	Conexion conexion;
+	
+	public MySQLUsuarioDAO() {
+		this.conexion = Conexion.getInstance();
+	}
+	
 	@Override
 	public void create(Usuario usuario) throws Exception {
 		try {
-			this.connect();
-			this.connect();
+			
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
 			sql.append("VALUES (?,?,?,?,?,?);");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getCorreo());
 			st.setString(2, usuario.getClave());
 			st.setString(3, usuario.getNombreUsuario());
@@ -29,19 +36,19 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void update(Usuario usuario) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
 			sql.append("WHERE id_usuario=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, usuario.getNombreUsuario());
 			st.setString(2, usuario.getCorreo());
 			st.setString(3, usuario.getClave());
@@ -53,24 +60,24 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void delete(Usuario usuario) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("DELETE usuario WHERE id_usuario=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, usuario.getIdUsuario());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
@@ -78,11 +85,11 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	public Usuario readOne(int idUsuario) throws Exception {
 		Usuario usuario = null;
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario WHERE id_usuario=?;");// Tambien borrara la table con relacion de llave foranea
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, idUsuario);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
@@ -100,7 +107,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return usuario;
 	}
@@ -109,11 +116,11 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	public ArrayList<Usuario> readAll() throws Exception {
 		ArrayList<Usuario> listUsuarios = new ArrayList<Usuario>();
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
@@ -131,7 +138,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return listUsuarios;
 	}
@@ -139,11 +146,11 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 	public Usuario verifyCredentials(String correo, String clave) throws Exception {
 		Usuario usuario = null;
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario WHERE correo=? AND clave=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, correo);
 			st.setString(2, clave);
 
@@ -163,7 +170,7 @@ public class MySQLUsuarioDAO extends Conexion implements IUsuario {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return usuario;
 	}

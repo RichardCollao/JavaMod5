@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 16, 2022 at 11:16 PM
+-- Generation Time: Jun 22, 2022 at 09:45 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -67,7 +67,9 @@ INSERT INTO `capacitacion` (`id_capacitacion`, `rut_empresa`, `dia`, `hora`, `lu
 (5, '98000002-k', 'Martes', '18:00:00', 'Santiago', '4 horas', 14),
 (6, '98000003-k', 'Miercoles', '18:00:00', 'Santiago', '4 horas', 16),
 (7, '98000004-k', 'Jueves', '18:00:00', 'Santiago', '4 horas', 18),
-(8, '98000005-k', 'Viernes', '18:00:00', 'Santiago', '4 horas', 20);
+(8, '98000005-k', 'Viernes', '18:00:00', 'Santiago', '4 horas', 20),
+(19, '14547713-1', 'Lunes', '20:00:00', 'santiago', '1 mes', 6),
+(20, '14547713-k', 'Jueves', '23:00:00', 'santiago', '1 mes', 12);
 
 -- --------------------------------------------------------
 
@@ -129,14 +131,14 @@ CREATE TABLE `usuario` (
   `nombre_usuario` varchar(50) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
   `run` varchar(12) NOT NULL,
-  `type` varchar(16) NOT NULL
+  `tipo` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `nombre_usuario`, `fecha_nacimiento`, `run`, `type`) VALUES
+INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `nombre_usuario`, `fecha_nacimiento`, `run`, `tipo`) VALUES
 (1, 'user1@domain.com', '123456', 'Li', '2000-01-01', '20001000-1', 'cliente'),
 (2, 'user2@domain.com', '123456', 'Yan', '2000-02-01', '20002000-2', 'cliente'),
 (3, 'user3@domain.com', '123456', 'Hui', '2000-03-01', '20003000-3', 'cliente'),
@@ -145,7 +147,8 @@ INSERT INTO `usuario` (`id_usuario`, `correo`, `clave`, `nombre_usuario`, `fecha
 (6, 'user6@domain.com', '123456', 'Jun', '2000-06-01', '20006000-6', 'administrativo'),
 (7, 'user7@domain.com', '123456', 'Ryu', '2000-07-01', '20007000-7', 'profesional'),
 (8, 'user8@domain.com', '123456', 'Ken', '2000-08-01', '20008000-8', 'profesional'),
-(9, 'user9@domain.com', '123456', 'Lin', '2000-09-01', '20009000-9', 'profesional');
+(9, 'user9@domain.com', '123456', 'Lin', '2000-09-01', '20009000-9', 'profesional'),
+(10, 'admin@domain.com', '123456', 'admin', '2000-01-01', '21000000-k', 'profesional');
 
 --
 -- Indexes for dumped tables
@@ -189,13 +192,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `capacitacion`
 --
 ALTER TABLE `capacitacion`
-  MODIFY `id_capacitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_capacitacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

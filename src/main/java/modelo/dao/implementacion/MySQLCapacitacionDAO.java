@@ -1,23 +1,30 @@
-package modelo.dao.mysql;
+package modelo.dao.implementacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import conexion.Conexion;
 import modelo.dao.interfaces.ICapacitacion;
 import modelo.entities.Capacitacion;
 
-public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
+public class MySQLCapacitacionDAO implements ICapacitacion {
 
+	Conexion conexion;
+
+	public MySQLCapacitacionDAO(){
+		this.conexion = Conexion.getInstance();
+	}
+	
 	@Override
 	public void create(Capacitacion capacitacion) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO capacitacion(rut_empresa, dia, hora, lugar, duracion, cantidad_asistentes) ");
 			sql.append("VALUES (?,?,?,?,?,?);");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, capacitacion.getRutEmpresa());
 			st.setString(2, capacitacion.getDia());
 			st.setString(3, capacitacion.getHora());
@@ -28,20 +35,20 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void update(Capacitacion capacitacion) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE capacitacion ");
 			sql.append("SET rut_empresa=?, dia=?, hora=?, lugar=?, duracion=?, cantidad_asistentes=? ");
 			sql.append("WHERE id_capacitacion=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, capacitacion.getRutEmpresa());
 			st.setString(2, capacitacion.getDia());
 			st.setString(3, capacitacion.getHora());
@@ -54,23 +61,23 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void delete(Capacitacion capacitacion) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("DELETE capacitacion WHERE id_capacitacion=?;");
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, capacitacion.getIdCapacitacion());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
@@ -78,12 +85,12 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 	public Capacitacion readOne(int idCapacitacion) throws Exception {
 		Capacitacion capacitacion = null;
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM capacitacion ");
 			sql.append("WHERE id_capacitacion=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, idCapacitacion);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
@@ -101,7 +108,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return capacitacion;
 	}
@@ -110,11 +117,11 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 	public ArrayList<Capacitacion> readAll() throws Exception {
 		ArrayList<Capacitacion> listCapacitaciones = new ArrayList<Capacitacion>();
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM capacitacion;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				Capacitacion capacitacion = new Capacitacion();
@@ -131,7 +138,7 @@ public class MySQLCapacitacionDAO extends Conexion implements ICapacitacion {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return listCapacitaciones;
 	}

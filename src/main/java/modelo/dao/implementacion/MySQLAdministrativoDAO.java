@@ -1,19 +1,26 @@
-package modelo.dao.mysql;
+package modelo.dao.implementacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import conexion.Conexion;
 import modelo.dao.interfaces.IAdministrativo;
 import modelo.entities.Administrativo;
 
-public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo {
+public class MySQLAdministrativoDAO implements IAdministrativo {
 	public int last_inserted_id;
 
+	Conexion conexion;
+
+	public MySQLAdministrativoDAO(){
+		this.conexion = Conexion.getInstance();
+	}
+	
 	@Override
 	public void create(Administrativo administrativo) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
@@ -22,7 +29,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			sql.append("INSERT INTO administrativo(fk_id_usuario, area, experiencia_previa) VALUES (@last_id,?,?);");
 			sql.append("COMMIT;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, administrativo.getCorreo());
 			st.setString(2, administrativo.getClave());
 			st.setString(3, administrativo.getNombreUsuario());
@@ -40,14 +47,14 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void update(Administrativo administrativo) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
@@ -55,7 +62,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 			sql.append("UPDATE administrativo SET area=?, experiencia_previa=? WHERE fk_id_usuario=?;");
 			sql.append("COMMIT;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, administrativo.getCorreo());
 			st.setString(2, administrativo.getClave());
 			st.setString(3, administrativo.getNombreUsuario());
@@ -70,24 +77,24 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void delete(Administrativo administrativo) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE usuario WHERE id_usuario=?;");// Restrict cascade delete this
+			sql.append("DELETE usuario WHERE id_usuario=?;");// Restrict cascade delete this.conexion
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, administrativo.getIdUsuario());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
@@ -95,13 +102,13 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 	public Administrativo readOne(int idAdministrativo) throws Exception {
 		Administrativo administrativo = null;
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario, administrativo ");
 			sql.append("WHERE administrativo.fk_id_usuario=usuario.id_usuario ");
 			sql.append("AND administrativo.fk_id_usuario=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, idAdministrativo);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
@@ -121,7 +128,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return administrativo;
 	}
@@ -130,12 +137,12 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 	public ArrayList<Administrativo> readAll() throws Exception {
 		ArrayList<Administrativo> listAdministrativos = new ArrayList<>();
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario, administrativo ");
 			sql.append("WHERE administrativo.fk_id_usuario=usuario.id_usuario;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				Administrativo administrativo = new Administrativo();
@@ -155,7 +162,7 @@ public class MySQLAdministrativoDAO extends Conexion implements IAdministrativo 
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return listAdministrativos;
 	}

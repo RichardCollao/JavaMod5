@@ -2,7 +2,7 @@ package controlador;
 
 import java.util.ArrayList;
 
-import modelo.dao.mysql.MySQLUsuarioDAO;
+import modelo.dao.implementacion.MySQLUsuarioDAO;
 import modelo.entities.Usuario;
 
 public class ListarUsuarios extends MainServlet implements Callback {

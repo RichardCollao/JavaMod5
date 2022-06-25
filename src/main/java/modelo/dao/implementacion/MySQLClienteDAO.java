@@ -1,19 +1,26 @@
-package modelo.dao.mysql;
+package modelo.dao.implementacion;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import conexion.Conexion;
 import modelo.dao.interfaces.ICliente;
 import modelo.entities.Cliente;
 
-public class MySQLClienteDAO extends Conexion implements ICliente {
+public class MySQLClienteDAO implements ICliente {
 	public int last_inserted_id;
+
+	Conexion conexion;
+
+	public MySQLClienteDAO() {
+		this.conexion = Conexion.getInstance();
+	}
 
 	@Override
 	public void create(Cliente cliente) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
@@ -23,7 +30,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			sql.append("VALUES (@last_id,?,?,?,?,?,?,?);");
 			sql.append("COMMIT;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, cliente.getCorreo());
 			st.setString(2, cliente.getClave());
 			st.setString(3, cliente.getNombreUsuario());
@@ -46,14 +53,14 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void update(Cliente cliente) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
@@ -62,7 +69,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 			sql.append("WHERE fk_id_usuario=?;");
 			sql.append("COMMIT;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, cliente.getCorreo());
 			st.setString(2, cliente.getClave());
 			st.setString(4, cliente.getNombreUsuario());
@@ -81,24 +88,24 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
 	@Override
 	public void delete(Cliente cliente) throws Exception {
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
-			sql.append("DELETE usuario WHERE id_usuario=?;");// Restrict cascade delete this
+			sql.append("DELETE usuario WHERE id_usuario=?;");// Restrict cascade delete this.conexion
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, cliente.getIdUsuario());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 	}
 
@@ -106,13 +113,13 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 	public Cliente readOne(int idCliente) throws Exception {
 		Cliente cliente = null;
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario, cliente ");
 			sql.append("WHERE cliente.fk_id_usuario=usuario.id_usuario ");
 			sql.append("AND cliente.fk_id_usuario=?;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setInt(1, idCliente);
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
@@ -137,7 +144,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return cliente;
 	}
@@ -146,12 +153,12 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 	public ArrayList<Cliente> readAll() throws Exception {
 		ArrayList<Cliente> listClientes = new ArrayList<>();
 		try {
-			this.connect();
+			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * FROM usuario, cliente ");
 			sql.append("WHERE cliente.fk_id_usuario=usuario.id_usuario;");
 
-			PreparedStatement st = this.connection.prepareStatement(sql.toString());
+			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				Cliente cliente = new Cliente();
@@ -175,7 +182,7 @@ public class MySQLClienteDAO extends Conexion implements ICliente {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			this.close();
+			this.conexion.close();
 		}
 		return listClientes;
 	}

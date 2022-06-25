@@ -2,7 +2,7 @@ package controlador;
 
 import java.util.ArrayList;
 
-import modelo.dao.mysql.MySQLCapacitacionDAO;
+import modelo.dao.implementacion.MySQLCapacitacionDAO;
 import modelo.entities.Capacitacion;
 
 public class ListarCapacitaciones extends MainServlet implements Callback {
