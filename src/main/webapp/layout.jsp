@@ -26,7 +26,7 @@ String fileJsp = (String) request.getAttribute("fileJsp");
 <%@ include file="./footer.jsp"%>
 
 <script>
-	window.onload = function() {
+window.addEventListener("load",function(event) {
 		// mantiene la seleccion del elemento <select>
 		selects = document.querySelectorAll("select");
 		selects.forEach(element => {
@@ -40,7 +40,7 @@ String fileJsp = (String) request.getAttribute("fileJsp");
 		<%if (toast != null) {%>
 		myToast.show();
 		<%}%>
-	}
+	},false);
 </script>
 
 

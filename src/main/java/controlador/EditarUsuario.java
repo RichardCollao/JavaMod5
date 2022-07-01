@@ -8,24 +8,30 @@ import clases.Utilities;
 import modelo.dao.implementacion.MySQLAdministrativoDAO;
 import modelo.dao.implementacion.MySQLClienteDAO;
 import modelo.dao.implementacion.MySQLProfesionalDAO;
+import modelo.dao.implementacion.MySQLUsuarioDAO;
 import modelo.entities.Administrativo;
 import modelo.entities.Cliente;
 import modelo.entities.Profesional;
 import modelo.entities.Usuario;
 
-public class CrearUsuario extends MainServlet implements Callback {
+public class EditarUsuario extends MainServlet implements Callback {
 
 	private String clave2;
 
-	public CrearUsuario() {
+	public EditarUsuario() {
 		super.setCallback(this);
 	}
 
 	@Override
 	public void continueGet() {
+		Usuario usuario = this.cargarUsuario();
+		
+		System.out.println("Usuario :" + usuario);
+		
+		
 		// Necesario para desplegar contenido dinamico con vanillajs
 		form.addTupla(new String[]{"tipo", "0"});
-		showView("crearusuario.jsp");
+		showView("editarusuario.jsp");
 	}
 
 	@Override
@@ -51,7 +57,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 		}
 
 		if (!this.errors.isEmpty()) {
-			showView("crearusuario.jsp");
+			showView("editarusuario.jsp");
 			return;
 		}
 
@@ -59,7 +65,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 			redirect(request.getContextPath() + "/listarusuarios");
 		} else {
 			this.errors.add("Error en la base de datos");
-			showView("crearusuario.jsp");
+			showView("editarusuario.jsp");
 		}
 	}
 
@@ -165,16 +171,18 @@ public class CrearUsuario extends MainServlet implements Callback {
 		return profesional;
 	}
 
-//	private boolean create(Usuario usuario) {
-//		try {
-//			MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-//			db.create(usuario);
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
+	private Usuario cargarUsuario() {
+		Usuario usuario = null;
+		Integer id = Integer.parseInt(this.request.getParameter("id"));
+		try {
+			MySQLUsuarioDAO db = new MySQLUsuarioDAO();
+			usuario = db.readOne(id);
+			return usuario;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	private ArrayList<String> validarFormulario(Usuario usuario) {
 		errors = new ArrayList<String>();

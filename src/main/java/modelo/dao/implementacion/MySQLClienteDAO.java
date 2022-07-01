@@ -9,8 +9,6 @@ import modelo.dao.interfaces.ICliente;
 import modelo.entities.Cliente;
 
 public class MySQLClienteDAO implements ICliente {
-	public int last_inserted_id;
-
 	Conexion conexion;
 
 	public MySQLClienteDAO() {
@@ -45,11 +43,6 @@ public class MySQLClienteDAO implements ICliente {
 			st.setString(12, cliente.getDireccion());
 			st.setString(13, cliente.getComuna());
 			st.execute();
-
-			ResultSet rs = st.getGeneratedKeys();
-			if (rs.next()) {
-				last_inserted_id = rs.getInt(1);
-			}
 		} catch (Exception e) {
 			throw e;
 		} finally {

@@ -30,7 +30,11 @@ ArrayList<Usuario> usuariosList = (ArrayList<Usuario>) request.getAttribute("usu
 					<td><%=usuario.getCorreo()%></td>
 					<td><%=usuario.getFechaNacimiento()%></td>
 					<td><%=usuario.getTipo()%></td>
-					<td><span>[Mostrar]</span>&nbsp;<span>[Editar]</span><span class="float-end">[Borrar]</span></td>
+					<td>
+					<a href="./mostrarusuario?id=<%=usuario.getIdUsuario()%>" class="btn btn-secondary btn-sm disabled" role="button">Mostrar</a>
+					&nbsp;
+					<a href="./editarusuario?id=<%=usuario.getIdUsuario()%>" class="btn btn-primary btn-sm" role="button">Editar</a>
+					</td>
 				</tr>
 				<%
 				}

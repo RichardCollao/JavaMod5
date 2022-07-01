@@ -1,6 +1,7 @@
 package clases;
 
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Form {
@@ -22,6 +23,10 @@ public class Form {
 		Integer result = Utilities.getIntegerOrZero(this.request.getParameter(name));
 		Form.parameters.add(new String[]{name, Utilities.getStringOrBlank(this.request.getParameter(name))});
 		return result;
+	}
+	
+	public void addTupla(String[] tupla) {
+		Form.parameters.add(tupla);
 	}
 
 	// metodo utilizado para poblar formulario

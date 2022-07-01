@@ -85,6 +85,8 @@ public class Usuario {
 		builder.append(fechaNacimiento);
 		builder.append(", run=");
 		builder.append(run);
+		builder.append(", tipo=");
+		builder.append(tipo);
 		builder.append("]");
 		return builder.toString();
 	}

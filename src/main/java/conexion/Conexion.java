@@ -7,9 +7,8 @@ public class Conexion {
 
 	protected static Conexion instance = null;
 	public Connection connection;
-
 	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; // org.postgresql.com.Driver
-	private final String DB_URL = "jdbc:mysql://localhost:3306/javam5"; // jdbc:postgresql://localhost:5432/ejemplo
+	private final String DB_URL = "jdbc:mysql://localhost:3306/javam5?allowMultiQueries=true"; // jdbc:postgresql://localhost:5432/ejemplo
 	private final String USER = "root";
 	private final String PASS = "";
 

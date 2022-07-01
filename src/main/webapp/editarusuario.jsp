@@ -3,8 +3,8 @@
 
 <main>
 	<div class="container">
-		<h2>Crear usuario</h2>
-		<form id="formulario" action="./crearusuario" method="post" style="max-width: 1000px">
+		<h2>Editar usuario</h2>
+		<form id="formulario" action="./editarusuario" method="post" style="max-width: 1000px">
 			<div class="row">
 				<div class="col">
 					<div class="mt-3">

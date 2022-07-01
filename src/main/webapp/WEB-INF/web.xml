@@ -26,6 +26,10 @@
 		<servlet-class>controlador.CrearUsuario</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>EditarUsuario</servlet-name>
+		<servlet-class>controlador.EditarUsuario</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>ListarUsuarios</servlet-name>
 		<servlet-class>controlador.ListarUsuarios</servlet-class>
 	</servlet>
@@ -52,6 +56,10 @@
 	<servlet-mapping>
 		<servlet-name>CrearUsuario</servlet-name>
 		<url-pattern>/crearusuario</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditarUsuario</servlet-name>
+		<url-pattern>/editarusuario</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ListarUsuarios</servlet-name>

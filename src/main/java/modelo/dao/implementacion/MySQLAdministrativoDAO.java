@@ -9,8 +9,6 @@ import modelo.dao.interfaces.IAdministrativo;
 import modelo.entities.Administrativo;
 
 public class MySQLAdministrativoDAO implements IAdministrativo {
-	public int last_inserted_id;
-
 	Conexion conexion;
 
 	public MySQLAdministrativoDAO(){
@@ -25,8 +23,9 @@ public class MySQLAdministrativoDAO implements IAdministrativo {
 			sql.append("START TRANSACTION;");
 			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
 			sql.append("VALUES (?,?,?,?,?,?);");
-			sql.append("SET @last_id = LAST_INSERT_ID();");
-			sql.append("INSERT INTO administrativo(fk_id_usuario, area, experiencia_previa) VALUES (@last_id,?,?);");
+			sql.append("SET @last_id=LAST_INSERT_ID();");
+			sql.append("INSERT INTO administrativo(fk_id_usuario, area, experiencia_previa) ");
+			sql.append("VALUES (@last_id,?,?);");
 			sql.append("COMMIT;");
 
 			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
@@ -39,11 +38,6 @@ public class MySQLAdministrativoDAO implements IAdministrativo {
 			st.setString(7, administrativo.getArea());
 			st.setString(8, administrativo.getExperienciaPrevia());
 			st.execute();
-
-			ResultSet rs = st.getGeneratedKeys();
-			if (rs.next()) {
-				last_inserted_id = rs.getInt(1);
-			}
 		} catch (Exception e) {
 			throw e;
 		} finally {

@@ -10,7 +10,6 @@ import modelo.dao.interfaces.IProfesional;
 import modelo.entities.Profesional;
 
 public class MySQLProfesionalDAO implements IProfesional {
-	public int last_inserted_id;
 	Conexion conexion;
 	
 	public MySQLProfesionalDAO() throws SQLException {
@@ -23,9 +22,11 @@ public class MySQLProfesionalDAO implements IProfesional {
 			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
-			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) VALUES (?,?,?,?,?);");
-			sql.append("SET @last_id = LAST_INSERT_ID();");
-			sql.append("INSERT INTO profesional(fk_id_usuario, titulo, fecha_ingreso) VALUES (@last_id,?,?);");
+			sql.append("INSERT INTO usuario(correo, clave, nombre_usuario, fecha_nacimiento, run, tipo) ");
+			sql.append("VALUES (?,?,?,?,?,?);");
+			sql.append("SET @last_id=LAST_INSERT_ID();");
+			sql.append("INSERT INTO profesional(fk_id_usuario, titulo, fecha_ingreso) ");
+			sql.append("VALUES (@last_id,?,?);");
 			sql.append("COMMIT;");
 
 			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
@@ -38,11 +39,6 @@ public class MySQLProfesionalDAO implements IProfesional {
 			st.setString(7, profesional.getTitulo());
 			st.setString(8, profesional.getFechaIngreso());
 			st.execute();
-
-			ResultSet rs = st.getGeneratedKeys();
-			if (rs.next()) {
-				last_inserted_id = rs.getInt(1);
-			}
 		} catch (Exception e) {
 			throw e;
 		} finally {
