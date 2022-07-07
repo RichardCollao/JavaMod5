@@ -80,6 +80,7 @@ public class MainServlet extends HttpServlet {
 				"CrearCapacitacion",
 				"ListarCapacitaciones",
 				"CrearUsuario",
+				"EditarUsuario",
 				"ListarUsuarios");
 		if (usuarioAut == null) {
 			if (authServletList.contains(currentNameClass)) {

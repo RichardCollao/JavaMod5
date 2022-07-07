@@ -52,31 +52,34 @@ public class MySQLClienteDAO implements ICliente {
 
 	@Override
 	public void update(Cliente cliente) throws Exception {
+		System.out.println("__________________________");
+		System.out.println(cliente);
 		try {
 			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
 			sql.append("WHERE id_usuario=?;");
-			sql.append("UPDATE cliente SET nombres=?, apellidos=?, telefono=?, afp=?, sistema_salud=?, direccion=?, comuna=? ");
-			sql.append("WHERE fk_id_usuario=?;");
+			sql.append("REPLACE INTO cliente (fk_id_usuario, nombres, apellidos, telefono, afp, sistema_salud, direccion, comuna) ");
+			sql.append("VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 			sql.append("COMMIT;");
 
 			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, cliente.getCorreo());
 			st.setString(2, cliente.getClave());
-			st.setString(4, cliente.getNombreUsuario());
+			st.setString(3, cliente.getNombreUsuario());
 			st.setString(4, cliente.getFechaNacimiento());
 			st.setString(5, cliente.getRun());
 			st.setString(6, cliente.getTipo());
 			st.setInt(7, cliente.getIdUsuario());
-			st.setString(8, cliente.getNombres());
-			st.setString(9, cliente.getApellidos());
-			st.setString(10, cliente.getTelefono());
-			st.setString(11, cliente.getAfp());
-			st.setInt(12, cliente.getSistemaSalud());
-			st.setString(13, cliente.getDireccion());
-			st.setString(14, cliente.getComuna());
+			st.setInt(8, cliente.getIdUsuario());
+			st.setString(9, cliente.getNombres());
+			st.setString(10, cliente.getApellidos());
+			st.setString(11, cliente.getTelefono());
+			st.setString(12, cliente.getAfp());
+			st.setInt(13, cliente.getSistemaSalud());
+			st.setString(14, cliente.getDireccion());
+			st.setString(15, cliente.getComuna());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -117,10 +120,10 @@ public class MySQLClienteDAO implements ICliente {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				cliente = new Cliente();
-				cliente.setIdUsuario(rs.getInt("id_cliente"));
+				cliente.setIdUsuario(rs.getInt("id_usuario"));
 				cliente.setCorreo(rs.getString("correo"));
 				cliente.setClave(rs.getString("clave"));
-				cliente.setNombreUsuario(rs.getString("nombre"));
+				cliente.setNombreUsuario(rs.getString("nombre_usuario"));
 				cliente.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				cliente.setRun(rs.getString("run"));
 				cliente.setTipo(rs.getString("tipo"));
@@ -155,10 +158,10 @@ public class MySQLClienteDAO implements ICliente {
 			ResultSet rs = st.executeQuery();
 			if (rs.next()) {
 				Cliente cliente = new Cliente();
-				cliente.setIdUsuario(rs.getInt("id_cliente"));
+				cliente.setIdUsuario(rs.getInt("id_usuario"));
 				cliente.setCorreo(rs.getString("correo"));
 				cliente.setClave(rs.getString("clave"));
-				cliente.setNombreUsuario(rs.getString("nombre"));
+				cliente.setNombreUsuario(rs.getString("nombre_usuario"));
 				cliente.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				cliente.setRun(rs.getString("run"));
 				cliente.setTipo(rs.getString("tipo"));

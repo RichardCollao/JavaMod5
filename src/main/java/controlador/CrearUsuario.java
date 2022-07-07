@@ -24,7 +24,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 	@Override
 	public void continueGet() {
 		// Necesario para desplegar contenido dinamico con vanillajs
-		form.addTupla(new String[]{"tipo", "0"});
+		form.addTuple("tipo", "0");
 		showView("crearusuario.jsp");
 	}
 
@@ -35,17 +35,17 @@ public class CrearUsuario extends MainServlet implements Callback {
 		this.errors = validarFormulario(usuario);
 
 		Administrativo administrativo = null;
-		if (usuario.getTipo().equals("Administrativo")) {
+		if (usuario.getTipo().equals("administrativo")) {
 			administrativo = leerFormularioAdministrativo(usuario);
 			// this.errors.addAll(validarFormularioAdministrativo(administrativo));
 		}
 		Cliente cliente = null;
-		if (usuario.getTipo().equals("Cliente")) {
+		if (usuario.getTipo().equals("cliente")) {
 			cliente = leerFormularioCliente(usuario);
 			// this.errors.addAll(validarFormularioCliente(cliente));
 		}
 		Profesional profesional = null;
-		if (usuario.getTipo().equals("Profesional")) {
+		if (usuario.getTipo().equals("profesional")) {
 			profesional = leerFormularioProfesional(usuario);
 			// this.errors.addAll(validarFormularioProfesional(profesional));
 		}
@@ -65,17 +65,17 @@ public class CrearUsuario extends MainServlet implements Callback {
 
 	private boolean insert(Usuario usuario, Administrativo administrativo, Cliente cliente, Profesional profesional) {
 		try {
-			if (usuario.getTipo().equals("Administrativo")) {
+			if (usuario.getTipo().equals("administrativo")) {
 				MySQLAdministrativoDAO db = new MySQLAdministrativoDAO();
 				db.create(administrativo);
 				return true;
 			}
-			if (usuario.getTipo().equals("Cliente")) {
+			if (usuario.getTipo().equals("cliente")) {
 				MySQLClienteDAO db = new MySQLClienteDAO();
 				db.create(cliente);
 				return true;
 			}
-			if (usuario.getTipo().equals("Profesional")) {
+			if (usuario.getTipo().equals("profesional")) {
 				MySQLProfesionalDAO db = new MySQLProfesionalDAO();
 				db.create(profesional);
 				return true;
@@ -87,7 +87,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 	}
 
 	private Usuario leerFormularioUsuario() {
-		String[] tipoArray = new String[]{"Administrativo", "Cliente", "Profesional"};
+		String[] tipoArray = new String[]{"administrativo", "cliente", "profesional"};
 		Integer iTipo = form.getIntegerOrZero("tipo");
 		String correo = form.getStringOrBlank("correo");
 		String clave = form.getStringOrBlank("clave");
@@ -96,7 +96,6 @@ public class CrearUsuario extends MainServlet implements Callback {
 		String fechaNacimiento = form.getStringOrBlank("fecha_nacimiento");
 		String run = form.getStringOrBlank("run");
 		String tipo = tipoArray[iTipo];
-
 		Usuario usuario = new Usuario();
 		usuario.setCorreo(correo);
 		usuario.setClave(clave);
@@ -110,7 +109,6 @@ public class CrearUsuario extends MainServlet implements Callback {
 	private Administrativo leerFormularioAdministrativo(Usuario usuario) {
 		String area = form.getStringOrBlank("area");
 		String experienciaPrevia = form.getStringOrBlank("experiencia_previa");
-
 		Administrativo administrativo = new Administrativo();
 		administrativo.setArea(area);
 		administrativo.setExperienciaPrevia(experienciaPrevia);
@@ -131,7 +129,6 @@ public class CrearUsuario extends MainServlet implements Callback {
 		Integer sistemaSalud = form.getIntegerOrZero("sistema_salud");
 		String direccion = form.getStringOrBlank("direccion");
 		String comuna = form.getStringOrBlank("comuna");
-		System.out.println("SISTEMA SALUD: " + sistemaSalud );
 		Cliente cliente = new Cliente();
 		cliente.setNombres(nombres);
 		cliente.setApellidos(apellidos);
@@ -152,7 +149,6 @@ public class CrearUsuario extends MainServlet implements Callback {
 	private Profesional leerFormularioProfesional(Usuario usuario) {
 		String titulo = form.getStringOrBlank("titulo");
 		String fecha_ingreso = form.getStringOrBlank("fecha_ingreso");
-
 		Profesional profesional = new Profesional();
 		profesional.setTitulo(titulo);
 		profesional.setFechaIngreso(fecha_ingreso);
@@ -164,17 +160,6 @@ public class CrearUsuario extends MainServlet implements Callback {
 		profesional.setTipo(usuario.getTipo());
 		return profesional;
 	}
-
-//	private boolean create(Usuario usuario) {
-//		try {
-//			MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-//			db.create(usuario);
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
 
 	private ArrayList<String> validarFormulario(Usuario usuario) {
 		errors = new ArrayList<String>();
@@ -196,7 +181,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 		if (usuario.getNombreUsuario().length() == 0) {
 			errors.add("El campo 'nombre usuario' esta vacio.");
 		} else {
-			if (!Utilities.compareExpression("^[a-zA-Z0-9 ]{3,50}$", usuario.getNombreUsuario())) {
+			if (!Utilities.compareExpression("^[a-zA-Z0-9 ]{2,50}$", usuario.getNombreUsuario())) {
 				errors.add("El valor del campo 'nombre usuario' no es valido. (solo se permiten caracteres alfanumericos)");
 			}
 		}
@@ -209,7 +194,7 @@ public class CrearUsuario extends MainServlet implements Callback {
 			errors.add("El valor del campo 'run' no es valido.");
 		}
 		// validar tipo
-		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"Cliente", "Administrativo", "Profesional"}));
+		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"cliente", "administrativo", "profesional"}));
 		if (!list.contains(usuario.getTipo())) {
 			errors.add("El valor del campo 'tipo' no es valido.");
 		}

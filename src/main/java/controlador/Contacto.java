@@ -13,10 +13,16 @@ public class Contacto extends MainServlet implements Callback {
 	
 	@Override
 	public void continuePost() {
-		String correo = form.getStringOrBlank("nombre");
-		String clave = form.getStringOrBlank("correo");
+		String nombre = form.getStringOrBlank("nombre");
+		String correo = form.getStringOrBlank("correo");
 		String mensaje = form.getStringOrBlank("mensaje");
 
+		System.out.println("nombre: " +  nombre);
+		System.out.println("correo: " + correo);
+		System.out.println("mensaje: " + mensaje);
+		// redirect(request.getContextPath() + "/contacto?action=send");
+		
+		
 		// TODO: validacion
 		showView("contacto.jsp");
 	}

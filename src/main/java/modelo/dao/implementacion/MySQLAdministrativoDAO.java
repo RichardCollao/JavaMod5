@@ -48,14 +48,16 @@ public class MySQLAdministrativoDAO implements IAdministrativo {
 	@Override
 	public void update(Administrativo administrativo) throws Exception {
 		try {
+			System.out.println("__________________________");
+			System.out.println(administrativo);
 			this.conexion.connect();
 			StringBuilder sql = new StringBuilder();
 			sql.append("START TRANSACTION;");
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
 			sql.append("WHERE id_usuario=?;");
-			sql.append("UPDATE administrativo SET area=?, experiencia_previa=? WHERE fk_id_usuario=?;");
+			sql.append("REPLACE INTO administrativo (fk_id_usuario, area, experiencia_previa) ");
+			sql.append("VALUES (?,?,?);");
 			sql.append("COMMIT;");
-
 			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, administrativo.getCorreo());
 			st.setString(2, administrativo.getClave());
@@ -64,9 +66,9 @@ public class MySQLAdministrativoDAO implements IAdministrativo {
 			st.setString(5, administrativo.getRun());
 			st.setString(6, administrativo.getTipo());
 			st.setInt(7, administrativo.getIdUsuario());
-			st.setString(8, administrativo.getArea());
-			st.setString(9, administrativo.getExperienciaPrevia());
-			st.setInt(10, administrativo.getIdUsuario());
+			st.setInt(8, administrativo.getIdUsuario());
+			st.setString(9, administrativo.getArea());
+			st.setString(10, administrativo.getExperienciaPrevia());
 			st.execute();
 		} catch (Exception e) {
 			throw e;

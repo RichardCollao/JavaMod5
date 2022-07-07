@@ -25,8 +25,8 @@ public class Form {
 		return result;
 	}
 	
-	public void addTupla(String[] tupla) {
-		Form.parameters.add(tupla);
+	public void addTuple(String name, String value) {
+		Form.parameters.add(new String[]{name, value});
 	}
 
 	// metodo utilizado para poblar formulario

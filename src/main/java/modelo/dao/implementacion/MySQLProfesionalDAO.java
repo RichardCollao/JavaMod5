@@ -11,7 +11,7 @@ import modelo.entities.Profesional;
 
 public class MySQLProfesionalDAO implements IProfesional {
 	Conexion conexion;
-	
+
 	public MySQLProfesionalDAO() throws SQLException {
 		this.conexion = Conexion.getInstance();
 	}
@@ -54,20 +54,21 @@ public class MySQLProfesionalDAO implements IProfesional {
 			sql.append("START TRANSACTION;");
 			sql.append("UPDATE usuario SET correo=?, clave=?, nombre_usuario=?, fecha_nacimiento=?, run=?, tipo=? ");
 			sql.append("WHERE id_usuario=?;");
-			sql.append("UPDATE profesional SET area=?, experiencia_previa=? WHERE fk_id_usuario=?;");
+			sql.append("REPLACE INTO profesional (fk_id_usuario, titulo, fecha_ingreso) ");
+			sql.append("VALUES (?,?,?);");
 			sql.append("COMMIT;");
 
 			PreparedStatement st = this.conexion.connection.prepareStatement(sql.toString());
 			st.setString(1, profesional.getCorreo());
 			st.setString(2, profesional.getClave());
-			st.setString(4, profesional.getNombreUsuario());
+			st.setString(3, profesional.getNombreUsuario());
 			st.setString(4, profesional.getFechaNacimiento());
 			st.setString(5, profesional.getRun());
 			st.setString(6, profesional.getTipo());
 			st.setInt(7, profesional.getIdUsuario());
-			st.setString(8, profesional.getTitulo());
-			st.setString(9, profesional.getFechaIngreso());
-			st.setInt(10, profesional.getIdUsuario());
+			st.setInt(8, profesional.getIdUsuario());
+			st.setString(9, profesional.getTitulo());
+			st.setString(10, profesional.getFechaIngreso());
 			st.execute();
 		} catch (Exception e) {
 			throw e;
@@ -111,7 +112,7 @@ public class MySQLProfesionalDAO implements IProfesional {
 				profesional.setIdUsuario(rs.getInt("id_usuario"));
 				profesional.setCorreo(rs.getString("correo"));
 				profesional.setClave(rs.getString("clave"));
-				profesional.setNombreUsuario(rs.getString("nombre"));
+				profesional.setNombreUsuario(rs.getString("nombre_usuario"));
 				profesional.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				profesional.setRun(rs.getString("run"));
 				profesional.setTipo(rs.getString("tipo"));
@@ -144,7 +145,7 @@ public class MySQLProfesionalDAO implements IProfesional {
 				profesional.setIdUsuario(rs.getInt("id_usuario"));
 				profesional.setCorreo(rs.getString("correo"));
 				profesional.setClave(rs.getString("clave"));
-				profesional.setNombreUsuario(rs.getString("nombre"));
+				profesional.setNombreUsuario(rs.getString("nombre_usuario"));
 				profesional.setFechaNacimiento(rs.getString("fecha_nacimiento"));
 				profesional.setRun(rs.getString("run"));
 				profesional.setTipo(rs.getString("tipo"));

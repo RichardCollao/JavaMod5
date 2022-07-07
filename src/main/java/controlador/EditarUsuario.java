@@ -15,7 +15,6 @@ import modelo.entities.Profesional;
 import modelo.entities.Usuario;
 
 public class EditarUsuario extends MainServlet implements Callback {
-
 	private String clave2;
 
 	public EditarUsuario() {
@@ -24,66 +23,112 @@ public class EditarUsuario extends MainServlet implements Callback {
 
 	@Override
 	public void continueGet() {
+		
 		Usuario usuario = this.cargarUsuario();
+		if (usuario == null) {
+			errors.add("No se encontro ningun usuario con este identificador.");
+			redirect(request.getContextPath() + "/listarusuarios");
+			return;
+		}
+
+		Usuario tipoUsuario = this.cargarTipoUsuario(usuario);
 		
-		System.out.println("Usuario :" + usuario);
+		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"administrativo", "cliente", "profesional"}));
+		Integer iTipo = list.indexOf(usuario.getTipo());
+		form.addTuple("tipo", iTipo.toString());
+		form.addTuple("correo", usuario.getCorreo());
+		form.addTuple("clave", usuario.getClave());
+		form.addTuple("nombre_usuario", usuario.getNombreUsuario());
+		form.addTuple("fecha_nacimiento", usuario.getFechaNacimiento());
+		form.addTuple("run", usuario.getRun());
 		
-		
-		// Necesario para desplegar contenido dinamico con vanillajs
-		form.addTupla(new String[]{"tipo", "0"});
+		if (usuario.getTipo().equals("administrativo")) {
+			Administrativo administrativo = (Administrativo) tipoUsuario;
+			form.addTuple("area", administrativo.getArea());
+			form.addTuple("experiencia_previa", administrativo.getExperienciaPrevia());
+		}
+		if (usuario.getTipo().equals("cliente")) {
+			Cliente cliente = (Cliente) tipoUsuario;
+			form.addTuple("nombres", cliente.getNombres());
+			form.addTuple("apellidos", cliente.getApellidos());
+			form.addTuple("telefono", cliente.getTelefono());
+			form.addTuple("afp", cliente.getAfp());
+			form.addTuple("sistema_salud", Integer.toString(cliente.getSistemaSalud()));
+			form.addTuple("direccion", cliente.getDireccion());
+			form.addTuple("comuna", cliente.getComuna());
+		}
+		if (usuario.getTipo().equals("profesional")) {
+			Profesional profesional = (Profesional) tipoUsuario;
+			form.addTuple("titulo", profesional.getTitulo());
+			form.addTuple("fecha_ingreso", profesional.getFechaIngreso());
+		}
+
+		request.setAttribute("id", this.request.getParameter("id"));
 		showView("editarusuario.jsp");
 	}
 
 	@Override
 	public void continuePost() {
+		Usuario usuarioDB = this.cargarUsuario();
+		if (usuarioDB == null) {
+			errors.add("No se encontro ningun usuario con este identificador.");
+			redirect(request.getContextPath() + "/listarusuarios");
+			return;
+		}
+		
 		// Carga los datos desde el formulario
 		Usuario usuario = leerFormularioUsuario();
 		this.errors = validarFormulario(usuario);
-
+		
 		Administrativo administrativo = null;
-		if (usuario.getTipo().equals("Administrativo")) {
+		if (usuario.getTipo().equals("administrativo")) {
 			administrativo = leerFormularioAdministrativo(usuario);
+			administrativo.setIdUsuario(usuarioDB.getIdUsuario());
 			// this.errors.addAll(validarFormularioAdministrativo(administrativo));
 		}
 		Cliente cliente = null;
-		if (usuario.getTipo().equals("Cliente")) {
+		if (usuario.getTipo().equals("cliente")) {
 			cliente = leerFormularioCliente(usuario);
+			cliente.setIdUsuario(usuarioDB.getIdUsuario());
 			// this.errors.addAll(validarFormularioCliente(cliente));
 		}
 		Profesional profesional = null;
-		if (usuario.getTipo().equals("Profesional")) {
+		if (usuario.getTipo().equals("profesional")) {
 			profesional = leerFormularioProfesional(usuario);
+			profesional.setIdUsuario(usuarioDB.getIdUsuario());
 			// this.errors.addAll(validarFormularioProfesional(profesional));
 		}
 
 		if (!this.errors.isEmpty()) {
+			request.setAttribute("id", this.request.getParameter("id"));
 			showView("editarusuario.jsp");
 			return;
 		}
 
-		if (insert(usuario, administrativo, cliente, profesional)) {
+		if (update(usuario, administrativo, cliente, profesional)) {
 			redirect(request.getContextPath() + "/listarusuarios");
 		} else {
+			request.setAttribute("id", this.request.getParameter("id"));
 			this.errors.add("Error en la base de datos");
 			showView("editarusuario.jsp");
 		}
 	}
 
-	private boolean insert(Usuario usuario, Administrativo administrativo, Cliente cliente, Profesional profesional) {
+	private boolean update(Usuario usuario, Administrativo administrativo, Cliente cliente, Profesional profesional) {
 		try {
-			if (usuario.getTipo().equals("Administrativo")) {
+			if (usuario.getTipo().equals("administrativo")) {
 				MySQLAdministrativoDAO db = new MySQLAdministrativoDAO();
-				db.create(administrativo);
+				db.update(administrativo);
 				return true;
 			}
-			if (usuario.getTipo().equals("Cliente")) {
+			if (usuario.getTipo().equals("cliente")) {
 				MySQLClienteDAO db = new MySQLClienteDAO();
-				db.create(cliente);
+				db.update(cliente);
 				return true;
 			}
-			if (usuario.getTipo().equals("Profesional")) {
+			if (usuario.getTipo().equals("profesional")) {
 				MySQLProfesionalDAO db = new MySQLProfesionalDAO();
-				db.create(profesional);
+				db.update(profesional);
 				return true;
 			}
 		} catch (Exception e) {
@@ -91,9 +136,43 @@ public class EditarUsuario extends MainServlet implements Callback {
 		}
 		return false;
 	}
+	
+	private Usuario cargarUsuario() {
+		Usuario usuario = null;
+		Integer id = Integer.parseInt(this.request.getParameter("id"));
+		try {
+			MySQLUsuarioDAO db = new MySQLUsuarioDAO();
+			usuario = db.readOne(id);
+			return usuario;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	private Usuario cargarTipoUsuario(Usuario usuario) {
+		Usuario tipoUsuario = null; 
+		try {
+			if (usuario.getTipo().equals("administrativo")) {
+				MySQLAdministrativoDAO db = new MySQLAdministrativoDAO();
+				tipoUsuario = db.readOne(usuario.getIdUsuario());
+			}
+			if (usuario.getTipo().equals("cliente")) {
+				MySQLClienteDAO db = new MySQLClienteDAO();
+				tipoUsuario = db.readOne(usuario.getIdUsuario());
+			}
+			if (usuario.getTipo().equals("profesional")) {
+				MySQLProfesionalDAO db = new MySQLProfesionalDAO();
+				tipoUsuario = db.readOne(usuario.getIdUsuario());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tipoUsuario;
+	}
+	
 	private Usuario leerFormularioUsuario() {
-		String[] tipoArray = new String[]{"Administrativo", "Cliente", "Profesional"};
+		String[] tipoArray = new String[]{"administrativo", "cliente", "profesional"};
 		Integer iTipo = form.getIntegerOrZero("tipo");
 		String correo = form.getStringOrBlank("correo");
 		String clave = form.getStringOrBlank("clave");
@@ -102,7 +181,6 @@ public class EditarUsuario extends MainServlet implements Callback {
 		String fechaNacimiento = form.getStringOrBlank("fecha_nacimiento");
 		String run = form.getStringOrBlank("run");
 		String tipo = tipoArray[iTipo];
-
 		Usuario usuario = new Usuario();
 		usuario.setCorreo(correo);
 		usuario.setClave(clave);
@@ -116,7 +194,6 @@ public class EditarUsuario extends MainServlet implements Callback {
 	private Administrativo leerFormularioAdministrativo(Usuario usuario) {
 		String area = form.getStringOrBlank("area");
 		String experienciaPrevia = form.getStringOrBlank("experiencia_previa");
-
 		Administrativo administrativo = new Administrativo();
 		administrativo.setArea(area);
 		administrativo.setExperienciaPrevia(experienciaPrevia);
@@ -137,7 +214,7 @@ public class EditarUsuario extends MainServlet implements Callback {
 		Integer sistemaSalud = form.getIntegerOrZero("sistema_salud");
 		String direccion = form.getStringOrBlank("direccion");
 		String comuna = form.getStringOrBlank("comuna");
-		System.out.println("SISTEMA SALUD: " + sistemaSalud );
+		System.out.println("SISTEMA SALUD: " + sistemaSalud);
 		Cliente cliente = new Cliente();
 		cliente.setNombres(nombres);
 		cliente.setApellidos(apellidos);
@@ -158,7 +235,6 @@ public class EditarUsuario extends MainServlet implements Callback {
 	private Profesional leerFormularioProfesional(Usuario usuario) {
 		String titulo = form.getStringOrBlank("titulo");
 		String fecha_ingreso = form.getStringOrBlank("fecha_ingreso");
-
 		Profesional profesional = new Profesional();
 		profesional.setTitulo(titulo);
 		profesional.setFechaIngreso(fecha_ingreso);
@@ -171,19 +247,9 @@ public class EditarUsuario extends MainServlet implements Callback {
 		return profesional;
 	}
 
-	private Usuario cargarUsuario() {
-		Usuario usuario = null;
-		Integer id = Integer.parseInt(this.request.getParameter("id"));
-		try {
-			MySQLUsuarioDAO db = new MySQLUsuarioDAO();
-			usuario = db.readOne(id);
-			return usuario;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
+	
+	
 	private ArrayList<String> validarFormulario(Usuario usuario) {
 		errors = new ArrayList<String>();
 		// validar correo
@@ -204,7 +270,7 @@ public class EditarUsuario extends MainServlet implements Callback {
 		if (usuario.getNombreUsuario().length() == 0) {
 			errors.add("El campo 'nombre usuario' esta vacio.");
 		} else {
-			if (!Utilities.compareExpression("^[a-zA-Z0-9 ]{3,50}$", usuario.getNombreUsuario())) {
+			if (!Utilities.compareExpression("^[a-zA-Z0-9 ]{2,50}$", usuario.getNombreUsuario())) {
 				errors.add("El valor del campo 'nombre usuario' no es valido. (solo se permiten caracteres alfanumericos)");
 			}
 		}
@@ -217,7 +283,7 @@ public class EditarUsuario extends MainServlet implements Callback {
 			errors.add("El valor del campo 'run' no es valido.");
 		}
 		// validar tipo
-		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"Cliente", "Administrativo", "Profesional"}));
+		List<String> list = new ArrayList<>(Arrays.asList(new String[]{"cliente", "administrativo", "profesional"}));
 		if (!list.contains(usuario.getTipo())) {
 			errors.add("El valor del campo 'tipo' no es valido.");
 		}
